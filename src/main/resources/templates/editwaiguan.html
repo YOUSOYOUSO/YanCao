@@ -21,85 +21,119 @@
 <form class="layui-form layui-form-pane1" action="" lay-filter="first">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">搜索选择框</label>
-        <div class="layui-input-block">
-            <select name="interest-search" lay-filter="interest-search" lay-search>
-                <option value="">请搜索</option>
-                <option value="写作">写作</option>
-                <option value="阅读" disabled>阅读</option>
-                <option value="游戏" disabled>游戏</option>
-                <option value="音乐">音乐</option>
-                <option value="旅行">旅行</option>
-                <option value="读书">读书</option>
-                <option value="1">layer</option>
-                <option value="2" disabled>laydate</option>
-                <option value="3">3</option>
-                <option value="4">layim</option>
-                <option value="5">laypage</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-            </select>
+        <div class="layui-inline">
+            <label class="layui-form-label">行内表单</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择问题</option>
+                    <option value="0">你工作的第一个城市</option>
+                    <option value="1" disabled>你的工号</option>
+                    <option value="2">你最喜欢的老师</option>
+                </select>
+            </div>
+        </div>
 
-
-        </div>
-    </div>
-
-    <div class="layui-form-item" pane>
-        <label class="layui-form-label">复选框</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="like[write]" title="写作">
-            <input type="checkbox" name="like[read]" title="阅读">
-            <input type="checkbox" name="like[game]" title="游戏" disabled>
-        </div>
-    </div>
-    <div class="layui-form-item" pane>
-        <label class="layui-form-label">原始复选框</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作">
-            <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
-            <input type="checkbox" name="like1[game]" lay-skin="primary" title="游戏" disabled>
-        </div>
-    </div>
-    <div class="layui-form-item" pane>
-        <label class="layui-form-label">开关关</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="close" lay-skin="switch" title="开关">
-        </div>
-    </div>
-    <div class="layui-form-item" pane>
-        <label class="layui-form-label">开关开</label>
-        <div class="layui-input-block">
-            <input type="checkbox" checked name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
-            <input type="checkbox" name="open2" lay-skin="switch" lay-filter="switchTest" lay-text="已绑定|绑定">
-        </div>
-    </div>
-    <div class="layui-form-item" pane>
-        <label class="layui-form-label">单选框</label>
-        <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男">
-            <input type="radio" name="sex" value="女" title="女" checked>
-            <input type="radio" name="sex" value="中型" title="中" disabled>
-        </div>
-    </div>
-    <div class="layui-form-item" pane>
-        <label class="layui-form-label">单选框</label>
-        <div class="layui-input-block">
-            <input type="radio" name="sex.id" value="男" title="男">
-            <input type="radio" name="sex.id" value="女" title="女" checked>
-            <input type="radio" name="sex.id" value="中型" title="中">
-        </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">请填写描述</label>
-        <div class="layui-input-block">
-            <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
+        <div class="layui-inline">
+            <label class="layui-form-label">select分组</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-filter="quiz">
+                    <option value="">请选择问题</option>
+                    <optgroup label="城市记忆">
+                        <option value="0">你工作的第一个城市</option>
+                    </optgroup>
+                    <optgroup label="学生时代">
+                        <option value="1" disabled>你的工号</option>
+                        <option value="2">你最喜欢的老师</option>
+                    </optgroup>
+                </select>
+            </div>
         </div>
     </div>
     <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        <div class="layui-inline">
+            <label class="layui-form-label">行内表单</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择问题</option>
+                    <option value="0">你工作的第一个城市</option>
+                    <option value="1" disabled>你的工号</option>
+                    <option value="2">你最喜欢的老师</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">select分组</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-filter="quiz">
+                    <option value="">请选择问题</option>
+                    <optgroup label="城市记忆">
+                        <option value="0">你工作的第一个城市</option>
+                    </optgroup>
+                    <optgroup label="学生时代">
+                        <option value="1" disabled>你的工号</option>
+                        <option value="2">你最喜欢的老师</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">行内表单</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择问题</option>
+                    <option value="0">你工作的第一个城市</option>
+                    <option value="1" disabled>你的工号</option>
+                    <option value="2">你最喜欢的老师</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">select分组</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-filter="quiz">
+                    <option value="">请选择问题</option>
+                    <optgroup label="城市记忆">
+                        <option value="0">你工作的第一个城市</option>
+                    </optgroup>
+                    <optgroup label="学生时代">
+                        <option value="1" disabled>你的工号</option>
+                        <option value="2">你最喜欢的老师</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">行内表单</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择问题</option>
+                    <option value="0">你工作的第一个城市</option>
+                    <option value="1" disabled>你的工号</option>
+                    <option value="2">你最喜欢的老师</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">select分组</label>
+            <div class="layui-input-block">
+                <select name="quiz" lay-filter="quiz">
+                    <option value="">请选择问题</option>
+                    <optgroup label="城市记忆">
+                        <option value="0">你工作的第一个城市</option>
+                    </optgroup>
+                    <optgroup label="学生时代">
+                        <option value="1" disabled>你的工号</option>
+                        <option value="2">你最喜欢的老师</option>
+                    </optgroup>
+                </select>
+            </div>
         </div>
     </div>
 </form>
@@ -191,7 +225,6 @@
     });
 
 </script>
-
 
 
 </body>
