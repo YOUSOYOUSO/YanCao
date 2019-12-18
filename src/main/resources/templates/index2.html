@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html id="main" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>节点信息</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/heightlength.css">
+	<link rel="stylesheet" href="css/mxjs.css">
+</head>
+
+<body class="mScroll">
+<div class="container">
+	<div id="top" style="height: 50px;">
+
+	</div>
+
+	<div id="" style="background-color: white;">
+		<table class="table table-striped table-sm">
+			<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>ip</th>
+				<th>is_open</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody id="mytr">
+
+			<tr th:each="information:${info}">
+				<td><input readonly class="id" th:value="${information.id}"></input></td>
+				<td><input readonly class="name" th:value="${information.name}"></input></td>
+				<td><input readonly class="ip" th:value="${information.ip}"></input></td>
+				<td><input readonly class="is_open" th:value="${information.is_open}"></input></td>
+				<td>
+					<button class="btn btn-sm btn-danger" th:onclick="deleteEmp([[${information.id}]])">删除</button>
+					<button class="btn btn-sm" th:onclick="updateEmp(this)">开关</button>
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+	function deleteEmp(id) {
+		$.ajax({
+			url: '/delete/' + id,
+			type: 'DELETE',
+			success : function(data){
+				alert(data);
+				window.location.reload();
+			}
+		});
+	}
+
+	function updateEmp(obj) {
+		if ($(obj).parent().parent().find(".is_open").val() == "true") {
+			$(obj).parent().parent().find(".is_open").val(false)
+		} else if ($(obj).parent().parent().find(".is_open").val() == "false") {
+			$(obj).parent().parent().find(".is_open").val(true)
+		}
+		$.ajax({
+			url: '/update',
+			type: 'POST',
+			data:{
+				id : $(obj).parent().parent().find(".id").val(),
+				name : $(obj).parent().parent().find(".name").val(),
+				ip : $(obj).parent().parent().find(".ip").val(),
+				is_open : $(obj).parent().parent().find(".is_open").val()
+			},
+			success : function(data){
+				alert(data);
+				window.location.reload();
+			}
+		});
+	}
+
+	function addEmp(obj) {
+		$.ajax({
+			url: '/add',
+			type: 'PUT',
+			data:{
+				id : $(obj).parent().parent().find(".id").val(),
+				name : $(obj).parent().parent().find(".name").val(),
+				ip : $(obj).parent().parent().find(".ip").val(),
+				is_open : $(obj).parent().parent().find(".is_open").val()
+			},
+			success : function(data){
+				alert(data);
+				window.location.reload();
+			}
+		});
+	}
+
+
+	function findSome(obj) {
+
+		window.location = '/query/' + $(obj).val()
+	}
+</script>
+<script src="js/mking.js"></script>
+</body>
+</html>
