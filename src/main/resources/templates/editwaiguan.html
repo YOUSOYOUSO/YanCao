@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="utf-8">
     <title>表单模块 - layui</title>
     <meta name="renderer" content="webkit">
@@ -10,7 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="../statics/css/layui.css">
+    <link rel="stylesheet" href="css/layui.css">
 
     <style>
         body{padding: 10px;}
@@ -18,130 +19,253 @@
 </head>
 <body>
 
-<form class="layui-form layui-form-pane1" action="" lay-filter="first">
+<form class="layui-form layui-form-pane1" th:action="@{/addwaiguan}" lay-filter="first" style="padding-left: 100px; padding-top: 100px">
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" >
         <div class="layui-inline">
-            <label class="layui-form-label">行内表单</label>
+            <label class="layui-form-label">颜色状态</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-verify="required" lay-verType="tips">
-                    <option value="">请选择问题</option>
-                    <option value="0">你工作的第一个城市</option>
-                    <option value="1" disabled>你的工号</option>
-                    <option value="2">你最喜欢的老师</option>
+                <select name="yanse_zt" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择颜色</option>
+                    <option value="0">深黄色</option>
+                    <option value="1">金黄色</option>
+                    <option value="2" >正黄色</option>
+                    <option value="3">淡黄色</option>
+                    <option value="4">红棕色</option>
+                    <option value="5">微带青</option>
+                    <option value="6">杂色</option>
+                    <option value="7">青黄</option>
                 </select>
             </div>
         </div>
 
         <div class="layui-inline">
-            <label class="layui-form-label">select分组</label>
+            <label class="layui-form-label">颜色评分</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-filter="quiz">
-                    <option value="">请选择问题</option>
-                    <optgroup label="城市记忆">
-                        <option value="0">你工作的第一个城市</option>
-                    </optgroup>
-                    <optgroup label="学生时代">
-                        <option value="1" disabled>你的工号</option>
-                        <option value="2">你最喜欢的老师</option>
-                    </optgroup>
+                <select name="yanse_pf" lay-filter="quiz">
+                    <option value="">请选择评分</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2" >3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="12">13</option>
+                    <option value="13">14</option>
+                    <option value="14">15</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">成熟度状态</label>
+            <div class="layui-input-block">
+                <select name="chengshudu_zt" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择成熟度</option>
+                    <option value="0">完熟</option>
+                    <option value="1">成熟</option>
+                    <option value="2" >尚熟</option>
+                    <option value="3">欠熟</option>
+                    <option value="4">假熟</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">成熟度评分</label>
+            <div class="layui-input-block">
+                <select name="chengshudu_pf" lay-filter="quiz">
+                    <option value="">请选择评分</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2" >3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="12">13</option>
+                    <option value="13">14</option>
+                    <option value="14">15</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">行内表单</label>
+            <label class="layui-form-label">油分状态</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-verify="required" lay-verType="tips">
-                    <option value="">请选择问题</option>
-                    <option value="0">你工作的第一个城市</option>
-                    <option value="1" disabled>你的工号</option>
-                    <option value="2">你最喜欢的老师</option>
+                <select name="youfen_zt" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择油分</option>
+                    <option value="0">多</option>
+                    <option value="1">较多</option>
+                    <option value="2" >有</option>
+                    <option value="3">稍有</option>
+                    <option value="4">少</option>
                 </select>
             </div>
         </div>
 
         <div class="layui-inline">
-            <label class="layui-form-label">select分组</label>
+            <label class="layui-form-label">油分评分</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-filter="quiz">
-                    <option value="">请选择问题</option>
-                    <optgroup label="城市记忆">
-                        <option value="0">你工作的第一个城市</option>
-                    </optgroup>
-                    <optgroup label="学生时代">
-                        <option value="1" disabled>你的工号</option>
-                        <option value="2">你最喜欢的老师</option>
-                    </optgroup>
+                <select name="youfen_pf" lay-filter="quiz">
+                    <option value="">请选择评分</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2" >3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="12">13</option>
+                    <option value="13">14</option>
+                    <option value="14">15</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">行内表单</label>
+            <label class="layui-form-label">结构状态</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-verify="required" lay-verType="tips">
-                    <option value="">请选择问题</option>
-                    <option value="0">你工作的第一个城市</option>
-                    <option value="1" disabled>你的工号</option>
-                    <option value="2">你最喜欢的老师</option>
+                <select name="jiegou_zt" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择结构</option>
+                    <option value="0">疏松</option>
+                    <option value="1">尚疏松</option>
+                    <option value="2" >稍密</option>
+                    <option value="3">紧密</option>
                 </select>
             </div>
         </div>
 
         <div class="layui-inline">
-            <label class="layui-form-label">select分组</label>
+            <label class="layui-form-label">结构评分</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-filter="quiz">
-                    <option value="">请选择问题</option>
-                    <optgroup label="城市记忆">
-                        <option value="0">你工作的第一个城市</option>
-                    </optgroup>
-                    <optgroup label="学生时代">
-                        <option value="1" disabled>你的工号</option>
-                        <option value="2">你最喜欢的老师</option>
-                    </optgroup>
+                <select name="jiegou_pf" lay-filter="quiz">
+                    <option value="">请选择评分</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2" >3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="12">13</option>
+                    <option value="13">14</option>
+                    <option value="14">15</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">行内表单</label>
+            <label class="layui-form-label">身份状态</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-verify="required" lay-verType="tips">
-                    <option value="">请选择问题</option>
-                    <option value="0">你工作的第一个城市</option>
-                    <option value="1" disabled>你的工号</option>
-                    <option value="2">你最喜欢的老师</option>
+                <select name="shenfen_zt" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择身份</option>
+                    <option value="0">中等</option>
+                    <option value="1">稍薄</option>
+                    <option value="2" >稍厚</option>
+                    <option value="3">薄</option>
+                    <option value="4">厚</option>
                 </select>
             </div>
         </div>
 
         <div class="layui-inline">
-            <label class="layui-form-label">select分组</label>
+            <label class="layui-form-label">身份评分</label>
             <div class="layui-input-block">
-                <select name="quiz" lay-filter="quiz">
-                    <option value="">请选择问题</option>
-                    <optgroup label="城市记忆">
-                        <option value="0">你工作的第一个城市</option>
-                    </optgroup>
-                    <optgroup label="学生时代">
-                        <option value="1" disabled>你的工号</option>
-                        <option value="2">你最喜欢的老师</option>
-                    </optgroup>
+                <select name="shenfen_pf" lay-filter="quiz">
+                    <option value="">请选择评分</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2" >3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="12">13</option>
+                    <option value="13">14</option>
+                    <option value="14">15</option>
                 </select>
             </div>
         </div>
     </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">色度状态</label>
+            <div class="layui-input-block">
+                <select name="sedu_zt" lay-verify="required" lay-verType="tips">
+                    <option value="">请选择色度</option>
+                    <option value="0">浓</option>
+                    <option value="1">强</option>
+                    <option value="2" >中</option>
+                    <option value="3">弱</option>
+                    <option value="3">淡</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">色度评分</label>
+            <div class="layui-input-block">
+                <select name="sedu_pf" lay-filter="quiz">
+                    <option value="">请选择评分</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2" >3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="12">13</option>
+                    <option value="13">14</option>
+                    <option value="14">15</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <button type="submit">提交</button>
 </form>
+
 
 <br><br><br>
 
 
-<script src="../statics/layui.js"></script>
+<script src="layui.js"></script>
 <!-- <script src="../build/lay/dest/layui.all.js"></script> -->
 
 <script>

@@ -1,7 +1,7 @@
 package gcsj.entity;
 
 import javax.persistence.*;
-
+import com.alibaba.fastjson.*;
 @Entity
 @Table(name="tb_waiguan")//表名
 public class WaiGuan {
@@ -163,5 +163,10 @@ public class WaiGuan {
 
     public void setSedu_pf(int sedu_pf) {
         this.sedu_pf = sedu_pf;
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this) + "\n";
     }
 }
