@@ -27,7 +27,7 @@ public class WaiGuanController {
     }
 
     @RequestMapping("/addwaiguan")
-    public List<WaiGuan > insertWaiGuan(
+    public String insertWaiGuan(
             @RequestParam("yanse_zt") String yanse_zt,
             @RequestParam("yanse_pf") String yanse_pf,
             @RequestParam("chengshudu_zt") String chengshudu_zt,
@@ -56,7 +56,7 @@ public class WaiGuanController {
 
         System.out.println("前台数据："+waiGuan.toString());
         waiGuanRepository.save(waiGuan);
-        return null;
+        return "formsuccess";
     }
     @RequestMapping("/editwaiguan")
     public String  editWaiGuan(@RequestParam WaiGuan waiGuan)
