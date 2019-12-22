@@ -23,12 +23,15 @@ public class OnlineClient {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -41,11 +44,14 @@ public class OnlineClient {
         this.ip = ip;
     }
 
-    public Boolean getIsOpen() {
+    public Boolean getOpen() {
         return isOpen;
     }
 
-    public void setIsOpen(Boolean isOpen) {
-        this.isOpen = isOpen;
+    public void setOpen(Boolean open) {
+        isOpen = open;
+    }
+
+    public void setIsOpen(boolean b) {
     }
 }
