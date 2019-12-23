@@ -4,14 +4,15 @@ import gcsj.entity.WaiGuan;
 import gcsj.repository.WaiGuanRepository;
 import gcsj.service.WaiGuanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 
-@RestController
+@Controller
 public class WaiGuanController {
 
     @Autowired
@@ -59,10 +60,9 @@ public class WaiGuanController {
         return "formsuccess";
     }
     @RequestMapping("/editwaiguan")
-    public String  editWaiGuan(@RequestParam WaiGuan waiGuan)
+    public String  editWaiGuan()
     {
-
-        return "waiguan";
+        return "editwaiguan";
     }
 
 }
