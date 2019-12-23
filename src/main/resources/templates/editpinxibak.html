@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <title>表单模块 - layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../static/css/layui.css">
+
+    <style>
+        body{padding: 10px;}
+    </style>
+</head>
+<body>
+
+<form class="layui-form layui-form-pane1" th:action="@{/addwaiguan}" lay-filter="first" style="padding-left: 100px; padding-top: 100px">
+
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">香气质</label>
+            <div class="layui-input-block">
+                <select name="xiangqizhi" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="18">好</option>
+                    <option name="yszt" value="15">较好</option>
+                    <option name="yszt" value="13" >中等+</option>
+                    <option name="yszt" value="11">中等</option>
+                    <option name="yszt" value="9">中等-</option>
+                    <option name="yszt" value="7">较差</option>
+                    <option name="yszt" value="5">差</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">香气量</label>
+            <div class="layui-input-block">
+                <select name="xiangqiliang" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="16">足</option>
+                    <option name="yszt" value="14">较足</option>
+                    <option name="yszt" value="12" >尚充足+</option>
+                    <option name="yszt" value="10">尚充足</option>
+                    <option name="yszt" value="8">尚充足-</option>
+                    <option name="yszt" value="7">较少</option>
+                    <option name="yszt" value="5">差</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">杂气</label>
+            <div class="layui-input-block">
+                <select name="zaqi" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="16">无</option>
+                    <option name="yszt" value="14">较轻</option>
+                    <option name="yszt" value="12" >有+</option>
+                    <option name="yszt" value="10">有</option>
+                    <option name="yszt" value="8">有-</option>
+                    <option name="yszt" value="7">较重</option>
+                    <option name="yszt" value="5">重</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">刺激性</label>
+            <div class="layui-input-block">
+                <select name="cijixing" lay-verify="required" lay-verType="tips">
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="20">无</option>
+                    <option name="yszt" value="17">微有</option>
+                    <option name="yszt" value="15" >有+</option>
+                    <option name="yszt" value="13">有</option>
+                    <option name="yszt" value="11">有-</option>
+                    <option name="yszt" value="9">较大</option>
+                    <option name="yszt" value="7">大</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">余味</label>
+            <div class="layui-input-block">
+                <select name="yuwei" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="22">舒适</option>
+                    <option name="yszt" value="19">较舒适</option>
+                    <option name="yszt" value="15" >尚舒适+</option>
+                    <option name="yszt" value="13">尚舒适</option>
+                    <option name="yszt" value="11">尚舒适-</option>
+                    <option name="yszt" value="9">较苦辣</option>
+                    <option name="yszt" value="8">滞舌</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">燃烧性</label>
+            <div class="layui-input-block">
+                <select name="ranshaoxing" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="4">强</option>
+                    <option name="yszt" value="3">中等</option>
+                    <option name="yszt" value="2" >差</option>
+                    <option name="yszt" value="0">熄火</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">灰色</label>
+            <div class="layui-input-block">
+                <select name="huise" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="4">白</option>
+                    <option name="yszt" value="3">灰白</option>
+                    <option name="yszt" value="2" >灰</option>
+                    <option name="yszt" value="1">黑灰</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">浓度</label>
+            <div class="layui-input-block">
+                <select name="nongdu" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="1">淡</option>
+                    <option name="yszt" value="2">较淡</option>
+                    <option name="yszt" value="3" >中等</option>
+                    <option name="yszt" value="4">较浓</option>
+                    <option name="yszt" value="5">浓</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">劲头</label>
+            <div class="layui-input-block">
+                <select name="jintou" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="1">小</option>
+                    <option name="yszt" value="2">较小</option>
+                    <option name="yszt" value="3" >适中</option>
+                    <option name="yszt" value="4">较大</option>
+                    <option name="yszt" value="5">大</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">成团性</label>
+            <div class="layui-input-block">
+                <select name="chengtuanxing" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="5">好</option>
+                    <option name="yszt" value="4">较好</option>
+                    <option name="yszt" value="3" >中等</option>
+                    <option name="yszt" value="2">较差</option>
+                    <option name="yszt" value="1">差</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">细腻度</label>
+            <div class="layui-input-block">
+                <select name="xinidu" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="5">细腻</option>
+                    <option name="yszt" value="4">较细腻</option>
+                    <option name="yszt" value="3" >中等</option>
+                    <option name="yszt" value="2">稍粗糙</option>
+                    <option name="yszt" value="1">粗糙</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">回甜感</label>
+            <div class="layui-input-block">
+                <select name="huitiangan" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="5">强</option>
+                    <option name="yszt" value="4">较强</option>
+                    <option name="yszt" value="3" >中等</option>
+                    <option name="yszt" value="2">弱</option>
+                    <option name="yszt" value="1">无</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">干燥感</label>
+            <div class="layui-input-block">
+                <select name="ganzaodu" lay-verify="required" lay-verType="tips" >
+                    <option name="yszt" value="">请选择</option>
+                    <option name="yszt" value="5">弱</option>
+                    <option name="yszt" value="4">较弱</option>
+                    <option name="yszt" value="3" >中等</option>
+                    <option name="yszt" value="2">较强</option>
+                    <option name="yszt" value="1">强</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <button type="submit">提交</button>
+</form>
+
+
+<br><br><br>
+
+
+<script src="../static/layui.js"></script>
+<!-- <script src="../build/lay/dest/layui.all.js"></script> -->
+
+
+<script>
+
+    layui.use(['form', 'layedit', 'laydate'], function() {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        var $ = layui.jquery;
+
+
+
+
+    });
+
+</script>
+
+
+</body>
+</html>
