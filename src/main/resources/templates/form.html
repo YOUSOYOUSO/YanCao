@@ -82,7 +82,7 @@ body{padding: 10px;}
             <option value="0">你工作的第一个城市</option>
           </optgroup>
           <optgroup label="学生时代">
-            <option value="1" disabled>你的工号</option>
+            <option value="1" >你的工号</option>
             <option value="2">你最喜欢的老师</option>
           </optgroup>
         </select>
@@ -244,8 +244,13 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   
   form.on('select(quiz)', function(data){
     console.log('select.quiz：', this, data);
+    if(data.value='1'){
+        console.log("you choose 1");
+    }
   });
-  
+
+
+
   form.on('select(interest)', function(data){
     console.log('select.interest: ', this, data);
   });
@@ -269,7 +274,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     console.log(data)
     alert(JSON.stringify(data.field));
     return false;
-  });
+});
   
 });
 
