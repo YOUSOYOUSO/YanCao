@@ -12,6 +12,7 @@ public class User {
     @Column(name="name")//对应的列名
     private String name;
     @Column(name="password")//对应的列名
+
     private String passwd;
     public long getId() {
         return id;

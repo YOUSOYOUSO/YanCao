@@ -19,4 +19,10 @@ public class QualityServiceImpl  implements QualityService {
     public List<Quality> getQualityList() {
         return qualityRepository.findAll();
     }
+
+    @Override
+    public Quality addQuality(Quality quality) {
+        qualityRepository.save(quality);
+        return quality;
+    }
 }
