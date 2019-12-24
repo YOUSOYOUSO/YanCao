@@ -2,6 +2,10 @@ package gcsj.entity;
 
 import javax.persistence.*;
 import com.alibaba.fastjson.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="tb_waiguan")//表名
 public class WaiGuan {
@@ -44,6 +48,7 @@ public class WaiGuan {
 
     @Column(name="sedu_pf")//对应的列名
     private int sedu_pf;
+
 
 
     public WaiGuan(){
