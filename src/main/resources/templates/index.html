@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -35,7 +35,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="/logout">退出登录</a></li>
         </ul>
     </div>
 
@@ -46,27 +46,18 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">表单管理</a>
                     <dl class="layui-nav-child">
-                       <dd> <a th:href="@{/inputqualityinfo}" target="right">管理员列表</a></dd>
-                        <dd><a th:href="@{/editwaiguan}" target="right">填写表单</a></dd>
-                        <dd><a href="javascript:;">历史表单</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                       <dd> <a th:href="@{/inputqualityinfo}" target="right">增、改</a></dd>
+                        <dd><a th:href="@{/findthreeform}" target="right">查、改、删</a></dd>
+                        <dd><a href="javascript:;">数据分析</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">样品分析</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">权重设置</a></dd>
-                        <dd><a href="javascript:;">样品得分</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">样品对比</a></li>
             </ul>
         </div>
     </div>
 
     <div class="layui-body">
         <ul class="layui-tab-title"></ul>
-        <iframe scrolling="auto" rameborder="0" th:src="@{/userbak}" name="right" width="100%" height="100%" marginheight="0" marginwidth="0"></iframe>
+        <iframe scrolling="auto" rameborder="0" name="right" width="100%" height="100%" marginheight="0" marginwidth="0"></iframe>
     </div>
 
     <!--tab标签-->
@@ -79,9 +70,6 @@
 </div>
 
 <script src="layui.js"></script>
-<script>
-    //JavaScript代码区域
 
-</script>
 </body>
 </html>
