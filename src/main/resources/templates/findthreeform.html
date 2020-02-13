@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<table lay-filter="cpbh" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table'}">
+    <form class="layui-form layui-form-pane1" th:action="@{/findlike}"  >
+        <div class="layui-form-item" style="padding-left: 10px;padding-top: 10px" >
+            <label class="layui-form-label">条件搜索</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" name="key"  autocomplete="off">
+            </div>
+            <button class="layui-btn" type="submit" >搜索</button>
+        </div>
+    </form>
+    <thead>
+    <tr>
+        <th lay-data="{field:'qualityname', minWidth:300,align: 'center'}" >产品编号</th>
+        <th lay-data="{field:'state', minWidth:150,align: 'center' ,templet:'#statecolor',sort: true}"  >编辑状态</th>
+        <th lay-data="{fixed: 'right', width: 386, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr th:each="quality:${qualities}">
+        <td name="qualityname" th:text="${quality.getQualityname()}" th:value="${quality.getQualityname()}"></td>
+        <td th:text="${quality.getState()}" ></td>
+    </tr>
+    </tbody>
+
+</table>
+<script type="text/html" id="statecolor">
+    {{#  if(d.state === '填写完毕'){ }}
+    <span style="color: #2010f5;">{{ d.state }}</span>
+    {{#  } else { }}
+    <span style="color: #f5050d;">{{ d.state }}</span>
+    {{#  } }}
+</script>
+<script type="text/html" id="barDemo">
+
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
+</script>
+
+
+
+<script src="layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['table', 'form', 'layer','upload'], function () {
+        var table = layui.table,
+            layer = layui.layer,
+            upload = layui.upload,
+            $ = layui.jquery,
+            form = layui.form;
+        var table = layui.table;
+        table.init('cpbh',{});
+        table.on('tool(cpbh)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
+                        url:'deletequality',
+                        type:'GET',
+                        data:{
+                            qualityname:data.qualityname
+                        },
+                    })
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                location.href="/addquality?name="+data.qualityname;
+            }
+        });
+    });
+</script>
+</body>
+</html>
