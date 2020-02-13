@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="YanCao" />
+        <module name="MyYanCao" />
         <module name="YanCao1" />
+        <module name="YanCao" />
       </profile>
     </annotationProcessing>
   </component>

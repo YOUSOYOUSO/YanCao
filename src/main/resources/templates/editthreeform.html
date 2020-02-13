@@ -15,457 +15,471 @@
 
     <style>
         body{padding: 10px;}
+        .layui-btn{
+            position: relative;
+            margin-left: 300px;
+            border-radius: 5px;
+            background-color: chartreuse;
+        }
     </style>
 </head>
 <body>
 
 <form class="layui-form layui-form-pane1" th:action="@{/updatequality}" lay-filter="first" style="padding-left: 100px; padding-top: 100px">
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label-2">上部叶烟碱%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getSbyyanjian()}" name="sbyyanjian" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
+    <div class="layui-tab layui-tab-card" style="max-width: 700px;">
+        <ul class="layui-tab-title">
+            <li>化学表单</li>
+            <li>评吸表单</li>
+            <li>外观表单</li>
+        </ul>
+        <div class="layui-tab-content" style="min-height:400px;">
+            <div class="layui-tab-item"><div class="layui-form-item" >
+                <div class="layui-inline">
+                    <label class="layui-form-label-2">上部叶烟碱%</label>
+                    <div class="layui-input-block-1">
+                        <input type="text" th:value="${huaxue.getSbyyanjian()}" name="sbyyanjian" placeholder="输入0-100"  class="layui-input">
+                    </div>
+                </div>
 
-        <div class="layui-inline">
-            <label class="layui-form-label-2">中部叶烟碱%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getZbyyanjian()}" name="zbyyanjian" placeholder="输入0-100"  class="layui-input">
+                <div class="layui-inline">
+                    <label class="layui-form-label-2">中部叶烟碱%</label>
+                    <div class="layui-input-block-1">
+                        <input type="text" th:value="${huaxue.getZbyyanjian()}" name="zbyyanjian" placeholder="输入0-100"  class="layui-input">
+                    </div>
+                </div>
             </div>
+
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">下部叶烟碱%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getXbyyanjian()}" name="xbyyanjian" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">总糖%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getZongtang()}" name="zongtang" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">还原糖%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getHuanyuantang()}" name="huanyuantang" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">钾含量%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getJia()}" name="jiahanliang" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">氯含量%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getZonglv()}" name="lvhanliang" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">尼古丁%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getNiguding()}" name="niguding" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label-2">氮含量%</label>
+                        <div class="layui-input-block-1">
+                            <input type="text" th:value="${huaxue.getZongdan()}" name="danhanliang" placeholder="输入0-100"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item"><!--2-->
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">香气质</label>
+                        <div class="layui-input-block">
+                            <select name="xiangqizhi" lay-verify="required" lay-verType="tips" id="xiangqizhi">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">好</option>
+                                <option name="yszt" value="2">较好</option>
+                                <option name="yszt" value="3" >中等+</option>
+                                <option name="yszt" value="4">中等</option>
+                                <option name="yszt" value="5">中等-</option>
+                                <option name="yszt" value="6">较差</option>
+                                <option name="yszt" value="7">差</option>
+                            </select>
+                            <input type="hidden" id="xiangqizhiv" th:value="${pingxi.getXiangqizhi()}"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">香气量</label>
+                        <div class="layui-input-block">
+                            <select name="xiangqiliang" lay-verify="required" lay-verType="tips" id="xiangqiliang">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">足</option>
+                                <option name="yszt" value="2">较足</option>
+                                <option name="yszt" value="3" >尚充足+</option>
+                                <option name="yszt" value="4">尚充足</option>
+                                <option name="yszt" value="5">尚充足-</option>
+                                <option name="yszt" value="6">较少</option>
+                                <option name="yszt" value="7">差</option>
+                            </select>
+                            <input type="hidden" id="xiangqiliangv" th:value="${pingxi.getXiangqiliang()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">杂气</label>
+                        <div class="layui-input-block">
+                            <select name="zaqi" lay-verify="required" lay-verType="tips" id="zaqi">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">无</option>
+                                <option name="yszt" value="2">较轻</option>
+                                <option name="yszt" value="3" >有+</option>
+                                <option name="yszt" value="4">有</option>
+                                <option name="yszt" value="5">有-</option>
+                                <option name="yszt" value="6">较重</option>
+                                <option name="yszt" value="7">重</option>
+                            </select>
+                            <input type="hidden" id="zaqiv" th:value="${pingxi.getZaqi()}"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">刺激性</label>
+                        <div class="layui-input-block">
+                            <select name="cijixing" lay-verify="required" lay-verType="tips" id="cijixing">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">无</option>
+                                <option name="yszt" value="2">微有</option>
+                                <option name="yszt" value="3" >有+</option>
+                                <option name="yszt" value="4">有</option>
+                                <option name="yszt" value="5">有-</option>
+                                <option name="yszt" value="6">较大</option>
+                                <option name="yszt" value="7">大</option>
+                            </select>
+                            <input type="hidden" id="cijixingv" th:value="${pingxi.getCijixing()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">余味</label>
+                        <div class="layui-input-block">
+                            <select name="yuwei" lay-verify="required" lay-verType="tips" id="yuwei">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">舒适</option>
+                                <option name="yszt" value="2">较舒适</option>
+                                <option name="yszt" value="3" >尚舒适+</option>
+                                <option name="yszt" value="4">尚舒适</option>
+                                <option name="yszt" value="5">尚舒适-</option>
+                                <option name="yszt" value="6">较苦辣</option>
+                                <option name="yszt" value="7">滞舌</option>
+                            </select>
+                            <input type="hidden" id="yuweiv" th:value="${pingxi.getYuwei()}"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">燃烧性</label>
+                        <div class="layui-input-block">
+                            <select name="ranshaoxing" lay-verify="required" lay-verType="tips" id="ranshaoxing">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">强</option>
+                                <option name="yszt" value="2">中等</option>
+                                <option name="yszt" value="3" >差</option>
+                                <option name="yszt" value="4">熄火</option>
+                                <input type="hidden" id="ranshaoxingv" th:value="${pingxi.getRanshaoxing()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">灰色</label>
+                        <div class="layui-input-block">
+                            <select name="huise" lay-verify="required" lay-verType="tips" id="huise">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">白</option>
+                                <option name="yszt" value="2">灰白</option>
+                                <option name="yszt" value="3" >灰</option>
+                                <option name="yszt" value="4">黑灰</option>
+                            </select>
+                            <input type="hidden" id="huisev" th:value="${pingxi.getHuidu()}"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">浓度</label>
+                        <div class="layui-input-block">
+                            <select name="nongdu" lay-verify="required" lay-verType="tips" id="nongdu">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">淡</option>
+                                <option name="yszt" value="2">较淡</option>
+                                <option name="yszt" value="3" >中等</option>
+                                <option name="yszt" value="4">较浓</option>
+                                <option name="yszt" value="5">浓</option>
+                                <input type="hidden" id="nongduv" th:value="${pingxi.getNongdu()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">劲头</label>
+                        <div class="layui-input-block">
+                            <select name="jintou" lay-verify="required" lay-verType="tips" id="jintou">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">小</option>
+                                <option name="yszt" value="2">较小</option>
+                                <option name="yszt" value="3" >适中</option>
+                                <option name="yszt" value="4">较大</option>
+                                <option name="yszt" value="5">大</option>
+                                <input type="hidden" id="jintouv" th:value="${pingxi.getJintou()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">成团性</label>
+                        <div class="layui-input-block">
+                            <select name="chengtuanxing" lay-verify="required" lay-verType="tips" id="chengtuanxing">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">好</option>
+                                <option name="yszt" value="2">较好</option>
+                                <option name="yszt" value="3" >中等</option>
+                                <option name="yszt" value="4">较差</option>
+                                <option name="yszt" value="5">差</option>
+                                <input type="hidden" id="chengtuanxingv" th:value="${pingxi.getChengtuanxing()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">细腻度</label>
+                        <div class="layui-input-block">
+                            <select name="xinidu" lay-verify="required" lay-verType="tips" id="xinidu">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">细腻</option>
+                                <option name="yszt" value="2">较细腻</option>
+                                <option name="yszt" value="3" >中等</option>
+                                <option name="yszt" value="4">稍粗糙</option>
+                                <option name="yszt" value="5">粗糙</option>
+                                <input type="hidden" id="xiniduv" th:value="${pingxi.getXinidu()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">回甜感</label>
+                        <div class="layui-input-block">
+                            <select name="huitiangan" lay-verify="required" lay-verType="tips" id="huitiangan">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">强</option>
+                                <option name="yszt" value="2">较强</option>
+                                <option name="yszt" value="3" >中等</option>
+                                <option name="yszt" value="4">弱</option>
+                                <option name="yszt" value="5">无</option>
+                                <input type="hidden" id="huitianganv" th:value="${pingxi.getHuitiangan()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">干燥感</label>
+                        <div class="layui-input-block">
+                            <select name="ganzaodu" lay-verify="required" lay-verType="tips" id="ganzaogan">
+                                <option name="yszt" value="0">请选择</option>
+                                <option name="yszt" value="1">弱</option>
+                                <option name="yszt" value="2">较弱</option>
+                                <option name="yszt" value="3" >中等</option>
+                                <option name="yszt" value="4">较强</option>
+                                <option name="yszt" value="5">强</option>
+                                <input type="hidden" id="ganzaoganv" th:value="${pingxi.getGanzaogan()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="layui-tab-item"> <!--3-->
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">颜色状态</label>
+                        <div class="layui-input-block">
+                            <select name="yanse_zt" lay-verify="required" lay-verType="tips" lay-filter="yanse_zt" id="yanse_zt">
+                                <option name="yszt" value="0">请选择颜色</option>
+                                <option name="yszt" value="1">深黄色</option>
+                                <option name="yszt" value="2">金黄色</option>
+                                <option name="yszt" value="3" >正黄色</option>
+                                <option name="yszt" value="4">淡黄色</option>
+                                <option name="yszt" value="5">红棕色</option>
+                                <option name="yszt" value="6">微带青</option>
+                                <option name="yszt" value="7">杂色</option>
+                                <option name="yszt" value="8">青黄</option>
+                                <input type="hidden" id="yanse_ztv" th:value="${waiguan.getYanse_zt()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">颜色评分</label>
+                        <div class="layui-input-block">
+                            <select name="yanse_pf" lay-filter="yanse_pf" id="yanse_pf">
+                                <option value="0">请选择评分</option>
+                                <input type="hidden" id="yanse_pfv" th:value="${waiguan.getYanse_pf()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">成熟度状态</label>
+                        <div class="layui-input-block">
+                            <select name="chengshudu_zt" lay-verify="required" lay-verType="tips" lay-filter="chengshudu_zt" id="chengshudu_zt">
+                                <option value="0">请选择成熟度</option>
+                                <option value="1">完熟</option>
+                                <option value="2">成熟</option>
+                                <option value="3" >尚熟</option>
+                                <option value="4">欠熟</option>
+                                <option value="5">假熟</option>
+                                <input type="hidden" id="chengshudu_ztv" th:value="${waiguan.getChengshudu_zt()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">成熟度评分</label>
+                        <div class="layui-input-block">
+                            <select name="chengshudu_pf" lay-filter="quiz" id="chengshudu_pf">
+                                <option value="0">请选择评分</option>
+                                <input type="hidden" id="chengshudu_pfv" th:value="${waiguan.getChengshudu_pf()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">油分状态</label>
+                        <div class="layui-input-block">
+                            <select name="youfen_zt" lay-verify="required" lay-verType="tips" lay-filter="youfen_zt" id="youfen_zt">
+                                <option value="0">请选择油分</option>
+                                <option value="1">多</option>
+                                <option value="2">较多</option>
+                                <option value="3" >有</option>
+                                <option value="4">稍有</option>
+                                <option value="5">少</option>
+                                <input type="hidden" id="youfen_ztv" th:value="${waiguan.getYoufen_zt()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">油分评分</label>
+                        <div class="layui-input-block">
+                            <select name="youfen_pf" lay-filter="quiz" id="youfen_pf">
+                                <option value="0">请选择评分</option>
+                                <input type="hidden" id="youfen_pfv" th:value="${waiguan.getYoufen_pf()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">结构状态</label>
+                        <div class="layui-input-block">
+                            <select name="jiegou_zt" lay-verify="required" lay-verType="tips" lay-filter="jiegou_zt" id="jiegou_zt">
+                                <option value="0">请选择结构</option>
+                                <option value="1">疏松</option>
+                                <option value="2">尚疏松</option>
+                                <option value="3" >稍密</option>
+                                <option value="4">紧密</option>
+                                <input type="hidden" id="jiegou_ztv" th:value="${waiguan.getJiegou_zt()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">结构评分</label>
+                        <div class="layui-input-block">
+                            <select name="jiegou_pf" lay-filter="quiz" id="jiegou_pf">
+                                <option value="0">请选择评分</option>
+                                <input type="hidden" id="jiegou_pfv" th:value="${waiguan.getJiegou_pf()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">身份状态</label>
+                        <div class="layui-input-block">
+                            <select name="shenfen_zt" lay-verify="required" lay-verType="tips" lay-filter="shenfen_zt" id="shenfen_zt">
+                                <option value="0">请选择身份</option>
+                                <option value="1">中等</option>
+                                <option value="2">稍薄</option>
+                                <option value="3" >稍厚</option>
+                                <option value="4">薄</option>
+                                <option value="5">厚</option>
+                                <input type="hidden" id="shenfen_ztv" th:value="${waiguan.getShenfen_zt()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">身份评分</label>
+                        <div class="layui-input-block">
+                            <select name="shenfen_pf" lay-filter="quiz" id="shenfen_pf">
+                                <option value="0">请选择评分</option>
+                                <input type="hidden" id="shenfen_pfv" th:value="${waiguan.getShenfen_pf()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">色度状态</label>
+                        <div class="layui-input-block">
+                            <select name="sedu_zt" lay-verify="required" lay-verType="tips" lay-filter="sedu_zt" id="sedu_zt">
+                                <option value="0">请选择色度</option>
+                                <option value="1">浓</option>
+                                <option value="2">强</option>
+                                <option value="3" >中</option>
+                                <option value="4">弱</option>
+                                <option value="5">淡</option>
+                                <input type="hidden" id="sedu_ztv" th:value="${waiguan.getSedu_zt()}"/>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">色度评分</label>
+                        <div class="layui-input-block">
+                            <select name="sedu_pf" lay-filter="quiz" id="sedu_pf">
+                                <option value="0">请选择评分</option>
+                                <input type="hidden" id="sedu_pfv" th:value="${waiguan.getSedu_pf()}"/>
+                            </select>
+                        </div>
+                    </div>
+                </div></div>
         </div>
     </div>
 
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label-2">下部叶烟碱%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getXbyyanjian()}" name="xbyyanjian" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label-2">总糖%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getZongtang()}" name="zongtang" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label-2">还原糖%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getHuanyuantang()}" name="huanyuantang" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label-2">钾含量%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getJia()}" name="jiahanliang" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label-2">氯含量%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getZonglv()}" name="lvhanliang" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-
-
-        <div class="layui-inline">
-            <label class="layui-form-label-2">尼古丁%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getNiguding()}" name="niguding" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label-2">氮含量%</label>
-            <div class="layui-input-block-1">
-                <input type="text" th:value="${huaxue.getZongdan()}" name="danhanliang" placeholder="输入0-100"  class="layui-input">
-            </div>
-        </div>
-    </div>
-
-    <!--2-->
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">香气质</label>
-            <div class="layui-input-block">
-                <select name="xiangqizhi" lay-verify="required" lay-verType="tips" id="xiangqizhi">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">好</option>
-                    <option name="yszt" value="2">较好</option>
-                    <option name="yszt" value="3" >中等+</option>
-                    <option name="yszt" value="4">中等</option>
-                    <option name="yszt" value="5">中等-</option>
-                    <option name="yszt" value="6">较差</option>
-                    <option name="yszt" value="7">差</option>
-                </select>
-                <input type="hidden" id="xiangqizhiv" th:value="${pingxi.getXiangqizhi()}"/>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">香气量</label>
-            <div class="layui-input-block">
-                <select name="xiangqiliang" lay-verify="required" lay-verType="tips" id="xiangqiliang">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">足</option>
-                    <option name="yszt" value="2">较足</option>
-                    <option name="yszt" value="3" >尚充足+</option>
-                    <option name="yszt" value="4">尚充足</option>
-                    <option name="yszt" value="5">尚充足-</option>
-                    <option name="yszt" value="6">较少</option>
-                    <option name="yszt" value="7">差</option>
-                </select>
-                <input type="hidden" id="xiangqiliangv" th:value="${pingxi.getXiangqiliang()}"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">杂气</label>
-            <div class="layui-input-block">
-                <select name="zaqi" lay-verify="required" lay-verType="tips" id="zaqi">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">无</option>
-                    <option name="yszt" value="2">较轻</option>
-                    <option name="yszt" value="3" >有+</option>
-                    <option name="yszt" value="4">有</option>
-                    <option name="yszt" value="5">有-</option>
-                    <option name="yszt" value="6">较重</option>
-                    <option name="yszt" value="7">重</option>
-                </select>
-                <input type="hidden" id="zaqiv" th:value="${pingxi.getZaqi()}"/>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">刺激性</label>
-            <div class="layui-input-block">
-                <select name="cijixing" lay-verify="required" lay-verType="tips" id="cijixing">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">无</option>
-                    <option name="yszt" value="2">微有</option>
-                    <option name="yszt" value="3" >有+</option>
-                    <option name="yszt" value="4">有</option>
-                    <option name="yszt" value="5">有-</option>
-                    <option name="yszt" value="6">较大</option>
-                    <option name="yszt" value="7">大</option>
-                </select>
-                <input type="hidden" id="cijixingv" th:value="${pingxi.getCijixing()}"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">余味</label>
-            <div class="layui-input-block">
-                <select name="yuwei" lay-verify="required" lay-verType="tips" id="yuwei">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">舒适</option>
-                    <option name="yszt" value="2">较舒适</option>
-                    <option name="yszt" value="3" >尚舒适+</option>
-                    <option name="yszt" value="4">尚舒适</option>
-                    <option name="yszt" value="5">尚舒适-</option>
-                    <option name="yszt" value="6">较苦辣</option>
-                    <option name="yszt" value="7">滞舌</option>
-                </select>
-                <input type="hidden" id="yuweiv" th:value="${pingxi.getYuwei()}"/>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">燃烧性</label>
-            <div class="layui-input-block">
-                <select name="ranshaoxing" lay-verify="required" lay-verType="tips" id="ranshaoxing">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">强</option>
-                    <option name="yszt" value="2">中等</option>
-                    <option name="yszt" value="3" >差</option>
-                    <option name="yszt" value="4">熄火</option>
-                    <input type="hidden" id="ranshaoxingv" th:value="${pingxi.getRanshaoxing()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">灰色</label>
-            <div class="layui-input-block">
-                <select name="huise" lay-verify="required" lay-verType="tips" id="huise">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">白</option>
-                    <option name="yszt" value="2">灰白</option>
-                    <option name="yszt" value="3" >灰</option>
-                    <option name="yszt" value="4">黑灰</option>
-                </select>
-                <input type="hidden" id="huisev" th:value="${pingxi.getHuidu()}"/>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">浓度</label>
-            <div class="layui-input-block">
-                <select name="nongdu" lay-verify="required" lay-verType="tips" id="nongdu">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">淡</option>
-                    <option name="yszt" value="2">较淡</option>
-                    <option name="yszt" value="3" >中等</option>
-                    <option name="yszt" value="4">较浓</option>
-                    <option name="yszt" value="5">浓</option>
-                    <input type="hidden" id="nongduv" th:value="${pingxi.getNongdu()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">劲头</label>
-            <div class="layui-input-block">
-                <select name="jintou" lay-verify="required" lay-verType="tips" id="jintou">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">小</option>
-                    <option name="yszt" value="2">较小</option>
-                    <option name="yszt" value="3" >适中</option>
-                    <option name="yszt" value="4">较大</option>
-                    <option name="yszt" value="5">大</option>
-                    <input type="hidden" id="jintouv" th:value="${pingxi.getJintou()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">成团性</label>
-            <div class="layui-input-block">
-                <select name="chengtuanxing" lay-verify="required" lay-verType="tips" id="chengtuanxing">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">好</option>
-                    <option name="yszt" value="2">较好</option>
-                    <option name="yszt" value="3" >中等</option>
-                    <option name="yszt" value="4">较差</option>
-                    <option name="yszt" value="5">差</option>
-                    <input type="hidden" id="chengtuanxingv" th:value="${pingxi.getChengtuanxing()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">细腻度</label>
-            <div class="layui-input-block">
-                <select name="xinidu" lay-verify="required" lay-verType="tips" id="xinidu">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">细腻</option>
-                    <option name="yszt" value="2">较细腻</option>
-                    <option name="yszt" value="3" >中等</option>
-                    <option name="yszt" value="4">稍粗糙</option>
-                    <option name="yszt" value="5">粗糙</option>
-                    <input type="hidden" id="xiniduv" th:value="${pingxi.getXinidu()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">回甜感</label>
-            <div class="layui-input-block">
-                <select name="huitiangan" lay-verify="required" lay-verType="tips" id="huitiangan">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">强</option>
-                    <option name="yszt" value="2">较强</option>
-                    <option name="yszt" value="3" >中等</option>
-                    <option name="yszt" value="4">弱</option>
-                    <option name="yszt" value="5">无</option>
-                    <input type="hidden" id="huitianganv" th:value="${pingxi.getHuitiangan()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">干燥感</label>
-            <div class="layui-input-block">
-                <select name="ganzaodu" lay-verify="required" lay-verType="tips" id="ganzaogan">
-                    <option name="yszt" value="0">请选择</option>
-                    <option name="yszt" value="1">弱</option>
-                    <option name="yszt" value="2">较弱</option>
-                    <option name="yszt" value="3" >中等</option>
-                    <option name="yszt" value="4">较强</option>
-                    <option name="yszt" value="5">强</option>
-                    <input type="hidden" id="ganzaoganv" th:value="${pingxi.getGanzaogan()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <!--3-->
-    <div class="layui-form-item" >
-        <div class="layui-inline">
-            <label class="layui-form-label">颜色状态</label>
-            <div class="layui-input-block">
-                <select name="yanse_zt" lay-verify="required" lay-verType="tips" lay-filter="yanse_zt" id="yanse_zt">
-                    <option name="yszt" value="0">请选择颜色</option>
-                    <option name="yszt" value="1">深黄色</option>
-                    <option name="yszt" value="2">金黄色</option>
-                    <option name="yszt" value="3" >正黄色</option>
-                    <option name="yszt" value="4">淡黄色</option>
-                    <option name="yszt" value="5">红棕色</option>
-                    <option name="yszt" value="6">微带青</option>
-                    <option name="yszt" value="7">杂色</option>
-                    <option name="yszt" value="8">青黄</option>
-                    <input type="hidden" id="yanse_ztv" th:value="${waiguan.getYanse_zt()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">颜色评分</label>
-            <div class="layui-input-block">
-                <select name="yanse_pf" lay-filter="yanse_pf" id="yanse_pf">
-                    <option value="0">请选择评分</option>
-                    <input type="hidden" id="yanse_pfv" th:value="${waiguan.getYanse_pf()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">成熟度状态</label>
-            <div class="layui-input-block">
-                <select name="chengshudu_zt" lay-verify="required" lay-verType="tips" lay-filter="chengshudu_zt" id="chengshudu_zt">
-                    <option value="0">请选择成熟度</option>
-                    <option value="1">完熟</option>
-                    <option value="2">成熟</option>
-                    <option value="3" >尚熟</option>
-                    <option value="4">欠熟</option>
-                    <option value="5">假熟</option>
-                    <input type="hidden" id="chengshudu_ztv" th:value="${waiguan.getChengshudu_zt()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">成熟度评分</label>
-            <div class="layui-input-block">
-                <select name="chengshudu_pf" lay-filter="quiz" id="chengshudu_pf">
-                    <option value="0">请选择评分</option>
-                    <input type="hidden" id="chengshudu_pfv" th:value="${waiguan.getChengshudu_pf()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">油分状态</label>
-            <div class="layui-input-block">
-                <select name="youfen_zt" lay-verify="required" lay-verType="tips" lay-filter="youfen_zt" id="youfen_zt">
-                    <option value="0">请选择油分</option>
-                    <option value="1">多</option>
-                    <option value="2">较多</option>
-                    <option value="3" >有</option>
-                    <option value="4">稍有</option>
-                    <option value="5">少</option>
-                    <input type="hidden" id="youfen_ztv" th:value="${waiguan.getYoufen_zt()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">油分评分</label>
-            <div class="layui-input-block">
-                <select name="youfen_pf" lay-filter="quiz" id="youfen_pf">
-                    <option value="0">请选择评分</option>
-                    <input type="hidden" id="youfen_pfv" th:value="${waiguan.getYoufen_pf()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">结构状态</label>
-            <div class="layui-input-block">
-                <select name="jiegou_zt" lay-verify="required" lay-verType="tips" lay-filter="jiegou_zt" id="jiegou_zt">
-                    <option value="0">请选择结构</option>
-                    <option value="1">疏松</option>
-                    <option value="2">尚疏松</option>
-                    <option value="3" >稍密</option>
-                    <option value="4">紧密</option>
-                    <input type="hidden" id="jiegou_ztv" th:value="${waiguan.getJiegou_zt()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">结构评分</label>
-            <div class="layui-input-block">
-                <select name="jiegou_pf" lay-filter="quiz" id="jiegou_pf">
-                    <option value="0">请选择评分</option>
-                    <input type="hidden" id="jiegou_pfv" th:value="${waiguan.getJiegou_pf()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">身份状态</label>
-            <div class="layui-input-block">
-                <select name="shenfen_zt" lay-verify="required" lay-verType="tips" lay-filter="shenfen_zt" id="shenfen_zt">
-                    <option value="0">请选择身份</option>
-                    <option value="1">中等</option>
-                    <option value="2">稍薄</option>
-                    <option value="3" >稍厚</option>
-                    <option value="4">薄</option>
-                    <option value="5">厚</option>
-                    <input type="hidden" id="shenfen_ztv" th:value="${waiguan.getShenfen_zt()}"/>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">身份评分</label>
-            <div class="layui-input-block">
-                <select name="shenfen_pf" lay-filter="quiz" id="shenfen_pf">
-                    <option value="0">请选择评分</option>
-                    <input type="hidden" id="shenfen_pfv" th:value="${waiguan.getShenfen_pf()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">色度状态</label>
-            <div class="layui-input-block">
-                <select name="sedu_zt" lay-verify="required" lay-verType="tips" lay-filter="sedu_zt" id="sedu_zt">
-                    <option value="0">请选择色度</option>
-                    <option value="1">浓</option>
-                    <option value="2">强</option>
-                    <option value="3" >中</option>
-                    <option value="4">弱</option>
-                    <option value="5">淡</option>
-                    <input type="hidden" id="sedu_ztv" th:value="${waiguan.getSedu_zt()}"/>
-                </select>
-            </div>
-        </div>
-
-
-        <div class="layui-inline">
-            <label class="layui-form-label">色度评分</label>
-            <div class="layui-input-block">
-                <select name="sedu_pf" lay-filter="quiz" id="sedu_pf">
-                    <option value="0">请选择评分</option>
-                    <input type="hidden" id="sedu_pfv" th:value="${waiguan.getSedu_pf()}"/>
-                </select>
-            </div>
-        </div>
-    </div>
-
-
-    <button type="submit">提交</button>
+    <button class="layui-btn layui-btn-radius" type="submit">提交</button>
 </form>
 
 
@@ -473,7 +487,6 @@
 
 
 <script src="layui.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="js/mylayui.js"></script>
 <!-- <script src="../build/lay/dest/layui.all.js"></script> -->
 

@@ -1,4 +1,4 @@
-layui.use(['form', 'layedit', 'laydate'], function() {
+layui.use(['form', 'layedit', 'laydate','element'], function() {
     var form = layui.form
         , layer = layui.layer
         , layedit = layui.layedit

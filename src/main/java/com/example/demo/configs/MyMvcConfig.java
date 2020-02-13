@@ -17,10 +17,7 @@ public class MyMvcConfig implements WebMvcConfigurer{
 //
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/edithx").setViewName("/edithuaxue");
-        registry.addViewController("/editpx").setViewName("/editpingxi");
-        registry.addViewController("/editwg").setViewName("/editwaiguan");
-        registry.addViewController("/addquality").setViewName("/addquality");
+        registry.addViewController("/edit").setViewName("/editthreeform");
         registry.addViewController("/inputqualityinfo").setViewName("/inputqualityinfo");
         registry.addViewController("/findtest").setViewName("/findtest");
         registry.addViewController("/login").setViewName("/login");
