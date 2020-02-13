@@ -11,10 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,15 @@ public class UserController {
 
     @Autowired
     YanCaoRoleRepository yanCaoRoleRepository;
+
+    @RequestMapping("")
+    public String init(Principal principal, Model model) {
+        YanCaoRole adminrole=yanCaoRoleRepository.findByRolename("ROLE_ADMIN");
+        boolean isAdmin=yanCaoUserRepository.findByUsername(principal.getName()).getRoles().get(0).getId()== adminrole.getId();
+        model.addAttribute("isAdmin", isAdmin);
+        return "index";
+
+    }
     @RequestMapping("/addadmin")
     public @ResponseBody  boolean addadmin(
             @RequestParam("username") String username,
@@ -36,6 +47,13 @@ public class UserController {
         if(yanCaoRoleRepository.count()==0){
             yanCaoRoleRepository.save(new YanCaoRole("ROLE_ADMIN"));
             yanCaoRoleRepository.save(new YanCaoRole("ROLE_USER"));
+            YanCaoUser admin=new YanCaoUser();
+            admin.setUsername("admin");
+            admin.setPassword(ENCODER.encode("admin"));
+            List<YanCaoRole> roles=new ArrayList<YanCaoRole>();
+            roles.add(yanCaoRoleRepository.findByRolename("ROLE_ADMIN"));
+            admin.setRoles(roles);
+            yanCaoUserRepository.save(admin);
         }
         if(yanCaoUserRepository.findByUsername(username)!=null)
             return false;
@@ -43,7 +61,7 @@ public class UserController {
         yanCaoUser.setUsername(username);
         yanCaoUser.setPassword(ENCODER.encode(password));
         List<YanCaoRole> roles=new ArrayList<YanCaoRole>();
-        roles.add(yanCaoRoleRepository.findByRolename("ROLE_ADMIN"));
+        roles.add(yanCaoRoleRepository.findByRolename("ROLE_USER"));
         yanCaoUser.setRoles(roles);
         yanCaoUserRepository.save(yanCaoUser);
         return true;

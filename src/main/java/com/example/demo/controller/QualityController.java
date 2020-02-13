@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.HuaXue;
-import com.example.demo.entity.PingXi;
-import com.example.demo.entity.Quality;
-import com.example.demo.entity.WaiGuan;
+import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.management.relation.Role;
 import java.security.Principal;
 import java.util.List;
 
@@ -25,6 +23,8 @@ public class QualityController {
     HuaXueRepository huaXueRepository;
     @Autowired
     YanCaoUserRepository yanCaoUserRepository;
+    @Autowired
+    YanCaoRoleRepository yanCaoRoleRepository;
     @Autowired
     PingXiRepository pingXiRepository;
     @Autowired
@@ -154,6 +154,8 @@ public class QualityController {
     }
     @RequestMapping("/findthreeform")
     public String FindThreeForm(Principal principal,Model model){
+        YanCaoRole adminrole=yanCaoRoleRepository.findByRolename("ROLE_ADMIN");
+        if(yanCaoUserRepository.findByUsername(principal.getName()).getRoles().get(0).getId()!= adminrole.getId()){
         List<Quality> qualities=qualityRepository.findAllByUserid(yanCaoUserRepository.findByUsername(principal.getName()).getId());
         for(int i=0;i<qualities.size();i++){
             if(qualities.get(i).isFlag())
@@ -161,8 +163,17 @@ public class QualityController {
             else
                 qualities.get(i).setState("未填写完");
         }
-        System.out.println("这里得到："+qualities+qualities.size());
         model.addAttribute("qualities",qualities);
+        }else{
+            List<Quality> qualities=qualityRepository.findAll();
+            for(int i=0;i<qualities.size();i++){
+                if(qualities.get(i).isFlag())
+                    qualities.get(i).setState("填写完毕");
+                else
+                    qualities.get(i).setState("未填写完");
+            }
+            model.addAttribute("qualities",qualities);
+        }
         return "findthreeform";
     }
     @RequestMapping("/deletequality")
@@ -178,15 +189,26 @@ public class QualityController {
     public String FindLike(Model model,Principal principal,
                            @RequestParam("key") String key
     ){
-        List<Quality> qualities=qualityRepository.findAllByQualitynameLikeAndUserid("%"+key+"%",yanCaoUserRepository.findByUsername(principal.getName()).getId());
-        for(int i=0;i<qualities.size();i++){
-            if(qualities.get(i).isFlag())
-                qualities.get(i).setState("填写完毕");
-            else
-                qualities.get(i).setState("未填写完");
+        YanCaoRole adminrole=yanCaoRoleRepository.findByRolename("ROLE_ADMIN");
+        if(yanCaoUserRepository.findByUsername(principal.getName()).getRoles().get(0).getId()!= adminrole.getId()) {
+            List<Quality> qualities = qualityRepository.findAllByQualitynameLikeAndUserid("%" + key + "%", yanCaoUserRepository.findByUsername(principal.getName()).getId());
+            for (int i = 0; i < qualities.size(); i++) {
+                if (qualities.get(i).isFlag())
+                    qualities.get(i).setState("填写完毕");
+                else
+                    qualities.get(i).setState("未填写完");
+            }
+            model.addAttribute("qualities", qualities);
+        } else{
+            List<Quality> qualities = qualityRepository.findAllByQualitynameLike("%" + key + "%");
+            for (int i = 0; i < qualities.size(); i++) {
+                if (qualities.get(i).isFlag())
+                    qualities.get(i).setState("填写完毕");
+                else
+                    qualities.get(i).setState("未填写完");
+            }
+            model.addAttribute("qualities", qualities);
         }
-        System.out.println("这里得到："+qualities+qualities.size());
-        model.addAttribute("qualities",qualities);
         return "findthreeform";
     }
 @RequestMapping("/fuck")
