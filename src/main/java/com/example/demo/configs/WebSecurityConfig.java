@@ -66,7 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     //对/resources/static/目录下的静态资源，Spring Security不拦截
     public void configure(WebSecurity web) throws Exception{
+        web.ignoring().antMatchers("/js/**");
+        web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/bootstrap/**");
-
     }
 }
