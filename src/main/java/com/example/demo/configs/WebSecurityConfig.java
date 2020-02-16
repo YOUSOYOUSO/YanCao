@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                 //对/和/login路径不进行拦截
-                .antMatchers("/login","/register","/addadmin").permitAll()
+                .antMatchers("/login","/register","/addadmin","/init").permitAll()
                 .anyRequest().authenticated()
                 //.anyRequest().permitAll()
                 .and()
@@ -69,6 +69,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**");
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/bootstrap/**");
-
     }
 }

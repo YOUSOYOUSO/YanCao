@@ -1,53 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta content="type=text/html;charset=UTF-8" />
-    <title>登录页面</title>
-    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}"/>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/layui.css">
     <style type="text/css">
-        body{
-            padding-top: 50px;
+        .container{
+            width: 420px;
+            height: 320px;
+            min-height: 320px;
+            max-height: 320px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            padding: 20px;
+            z-index: 130;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+            font-size: 16px;
         }
-        .starter-template{
-            padding: 40px 15px;
-            text-align: center;
+        .close{
+            background-color: white;
+            border: none;
+            font-size: 18px;
+            margin-left: 410px;
+            margin-top: -10px;
         }
+
+        .layui-input{
+            border-radius: 5px;
+            width: 300px;
+            height: 40px;
+            font-size: 15px;
+        }
+        .layui-form-item{
+            margin-left: -20px;
+            margin-top: 20px;
+
+        }
+        #logoid{
+            margin-top: -16px;
+            padding-left:150px;
+            padding-bottom: 15px;
+        }
+        .layui-btn{
+            margin-left: -50px;
+            border-radius: 5px;
+            width: 350px;
+            height: 40px;
+            font-size: 15px;
+        }
+        .verity{
+            width: 120px;
+        }
+        .font-set{
+            font-size: 13px;
+            text-decoration: none;
+            margin-left: 120px;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<form class="layui-form" method="post" th:action="@{/login}">
     <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">烟草管理系统</a>
+        <div class="layui-form-item">
+            <blockquote   style="margin-top: 10px; background-color: #ff8e8b">
+                <div  th:if="${param.error}" style="color: crimson;margin-left: 180px;">账号或密码错误</div>
+            </blockquote>
+            <div   style="color: white;margin-left: 180px;">账号或密码错误</div>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li><a class="navbar-brand" th:href="@{/register}">注册</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="starter-template">
-        <p th:if="${param.error}" class="bg-danger">账号或密码错误</p>
-        <h2>登陆烟草管理系统</h2>
-        <form name="form" th:action="@{/login}" action="/login" method="POST">
-            <div class="form-group">
-                <div>
-                    <label for="username">账号：</label>
-                    <input id="username" type="text" value="" placeholder="输入用户名" name="username" class="form-control"/>
-                </div>
-                <div>
-                    <label for="password">密码：</label>
-                    <input id="password" type="password" placeholder="输入密码" name="password" class="form-control"/>
-                </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" id="username" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
             </div>
-            <input type="submit" id="login" value="登陆" class="btn btn-primary"/>
-        </form>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" >密 &nbsp;&nbsp;码</label>
+            <div class="layui-input-inline">
+                <input type="password" id="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="login">登录</button>
+            </div>
+        </div>
+        <a href="/register" class="font-set">注册</a>
     </div>
-</div>
+</form>
+<script type="text/javascript" src="layui.js"></script>
 
 </body>
 </html>
