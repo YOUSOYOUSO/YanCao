@@ -13,7 +13,7 @@
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">主页</a></li>
-            <li th:if="${isAdmin}" class="layui-nav-item"><a href="">添加权重</a></li>
+            <li th:if="${isAdmin}" class="layui-nav-item"><a th:href="@{/editweight}" target="right">修改权重</a></li>
             <li class="layui-nav-item"><a href="/changepassword">修改账号密码</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">

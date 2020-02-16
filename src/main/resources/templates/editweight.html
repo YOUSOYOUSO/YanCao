@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <title>表单模块 - layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="css/layui.css">
+
+    <style>
+        body{padding: 10px;}
+    </style>
+</head>
+<body>
+<div class="layui-tab layui-tab-card" style="max-width: 700px;">
+    <ul class="layui-tab-title" style="background-color: #dbe97f">
+        <li>化学表单</li>
+        <li>评吸表单</li>
+        <li>外观表单</li>
+    </ul>
+
+    <div class="layui-tab-content" style="min-height:400px;">
+        <div class="layui-tab-item">
+    <table lay-filter="huaxue" class="layui-table" lay-data="{cellMinWidth: 80,id: 'huaxue'}">
+
+    <thead>
+    <tr>
+        <th lay-data="{field:'name', minWidth:200,align: 'center'}" >名称</th>
+        <th lay-data="{field:'weight', edit: 'text',minWidth:200,align: 'center'}" >权重(可修改)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="huaXueWeight:${huaXueWeights}">
+        <td name="huaXueWeight_Name" th:text="${huaXueWeight.getName()}" th:value="${huaXueWeight.getName()}" ></td>
+        <td name="huaXueWeight_Weight" th:text="${huaXueWeight.getWeight()}" th:value="${huaXueWeight.getWeight()}"></td>
+    </tr>
+    </tbody>
+
+    </table>
+        </div>
+    <!--2-->
+        <div class="layui-tab-item">
+            <table lay-filter="pingxi" class="layui-table" lay-data="{cellMinWidth: 80,id: 'pingxi'}">
+
+                <thead>
+                <tr>
+                    <th lay-data="{field:'name', minWidth:200,align: 'center'}" >名称</th>
+                    <th lay-data="{field:'describes', minWidth:200,align: 'center'}" >描述</th>
+                    <th lay-data="{field:'score', edit: 'text',minWidth:200,align: 'center'}" >权重(可修改)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pingXiWeight:${pingXiWeights}">
+                    <td name="huaXueWeight_Name" th:text="${pingXiWeight.getName()}" th:value="${pingXiWeight.getName()}" ></td>
+                    <td name="huaXueWeight_Describes" th:text="${pingXiWeight.getDescribes()}" th:value="${pingXiWeight.getDescribes()}"></td>
+                    <td name="huaXueWeight_Score" th:text="${pingXiWeight.getScore()}" th:value="${pingXiWeight.getScore()}"></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="layui-tab-item">
+            <table lay-filter="waiguan" class="layui-table" lay-data="{cellMinWidth: 80,id: 'waiguan'}">
+
+                <thead>
+                <tr>
+                    <th lay-data="{field:'name', minWidth:200,align: 'center'}" >名称</th>
+                    <th lay-data="{field:'describes', minWidth:200,align: 'center'}" >描述</th>
+                    <th lay-data="{field:'values', minWidth:200,align: 'center'}" >值</th>
+                    <th lay-data="{field:'score', edit: 'text',minWidth:200,align: 'center'}" >权重(可修改)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="waiGuanWeight:${waiGuanWeights}">
+                    <td name="huaXueWeight_Name" th:text="${waiGuanWeight.getName()}" th:value="${waiGuanWeight.getName()}" ></td>
+                    <td name="huaXueWeight_Describes" th:text="${waiGuanWeight.getDescribes()}" th:value="${waiGuanWeight.getDescribes()}"></td>
+                    <td name="huaXueWeight_Describes" th:text="${waiGuanWeight.getValues()}" th:value="${waiGuanWeight.getValues()}"></td>
+                    <td name="huaXueWeight_Score" th:text="${waiGuanWeight.getScore()}" th:value="${waiGuanWeight.getScore()}"></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="layui.js"></script>
+<script>
+    layui.use(['table','element'], function(){
+        var table = layui.table,
+        $ = layui.jquery;
+        //监听单元格编辑
+        table.on('edit(huaxue)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data; //得到所在行所有键值
+            $.ajax({
+                url:'editweight/edithuaxueweight',
+                type:'GET',
+                data:{
+                    name:data.name,
+                    weight:value
+                },
+            })
+            layer.msg('化学【'+data.name +'】权重更改为：'+ value);
+        });
+        table.on('edit(pingxi)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data; //得到所在行所有键值
+            $.ajax({
+                url:'editweight/editpingxiweight',
+                type:'GET',
+                data:{
+                    name:data.name,
+                    describes:data.describes,
+                    score:value
+                },
+            })
+            layer.msg('评吸【'+data.name+ ','+data.describes+'】权重更改为：'+ value);
+        });
+        table.on('edit(waiguan)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data; //得到所在行所有键值
+            $.ajax({
+                url:'editweight/editwaiguanweight',
+                type:'GET',
+                data:{
+                    name:data.name,
+                    describes:data.describes,
+                    values:data.values,
+                    score:value
+                },
+            })
+            layer.msg('外观【'+data.name+ ','+data.describes+','+data.values+'】权重更改为：'+ value);
+        });
+    });
+</script>
+
+<!-- <script src="../build/lay/dest/layui.all.js"></script> -->
+
+
+
+
+
+</body>
+</html>
