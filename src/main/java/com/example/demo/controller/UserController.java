@@ -33,14 +33,7 @@ public class UserController {
     @Autowired
     YanCaoRoleRepository yanCaoRoleRepository;
 
-    @RequestMapping("")
-    public String init(Principal principal, Model model) {
-        YanCaoRole adminrole=yanCaoRoleRepository.findByRolename("ROLE_ADMIN");
-        boolean isAdmin=yanCaoUserRepository.findByUsername(principal.getName()).getRoles().get(0).getId()== adminrole.getId();
-        model.addAttribute("isAdmin", isAdmin);
-        return "index";
 
-    }
     
     @RequestMapping("/addadmin")
     public @ResponseBody  boolean addadmin(

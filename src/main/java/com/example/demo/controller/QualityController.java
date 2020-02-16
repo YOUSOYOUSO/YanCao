@@ -211,10 +211,7 @@ public class QualityController {
         }
         return "findthreeform";
     }
-@RequestMapping("/fuck")
-    public String fuck(String name){
-        return "fuck";
-}
+
 
 
 }
