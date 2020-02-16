@@ -3,15 +3,16 @@ package com.example.demo.controller;
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.management.relation.Role;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -29,11 +30,46 @@ public class QualityController {
     PingXiRepository pingXiRepository;
     @Autowired
     WaiGuanRepository waiGuanRepository;
+    @Autowired
+    YanNongRepository yanNongRepository;
+
+
     private Quality quality;
 
+    @RequestMapping("/inputqualityinfo")
+    public String inputQualityInfo(Principal principal, Model model){
+        List<YanNong> yanNongList= yanNongRepository.selectDistinctYanNongName();
+        model.addAttribute("yanNongList",yanNongList);
+        return "inputqualityinfo";
+    }
+
+
+
+    @RequestMapping("/getyantian")
+    @ResponseBody
+    public List<YanNong> getYanTian(String  yannong_name){
+        System.out.println(yannong_name);
+        List<YanNong> yanTianList= yanNongRepository.selectByYanNongName(yannong_name);
+
+        for (YanNong yt:yanTianList
+        ) {
+            System.out.println(yt.getYantian());
+        }
+        return yanTianList;
+    }
+
     @RequestMapping("/addquality")
-    public  String  addQuality(Principal principal,Model model, String name){
-        System.out.println("用户名："+principal.getName());
+    public  String  addQuality(Principal principal, Model model, String name, String date, Long yannong_id, String yantian){
+//name要对上
+        System.out.println("用户名："+principal.getName()+date+yannong_id);
+
+        Date date1=null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD");
+        try {
+            date1= simpleDateFormat.parse(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     if(qualityRepository.countByQualitynameAndUserid(name,yanCaoUserRepository.findByUsername(principal.getName()).getId())==0) {
         PingXi pingXi=new PingXi();
         HuaXue huaXue=new HuaXue();
@@ -41,10 +77,20 @@ public class QualityController {
         huaXueRepository.save(huaXue);
         pingXiRepository.save(pingXi);
         waiGuanRepository.save(waiGuan);
-        Quality quality= new Quality(name,yanCaoUserRepository.findByUsername(principal.getName()).getId(),pingXi.getId(),huaXue.getId(),waiGuan.getId(),false);
+        Quality quality= new Quality(name,
+                yanCaoUserRepository.findByUsername(principal.getName()).getId(),
+                huaXue.getId(),
+                waiGuan.getId(),
+                pingXi.getId(),
+                false);
+        quality.setCaigouriqi(date1);
+        quality.setYanonong_id(yannong_id);
         qualityRepository.save(quality);
     }
+
         this.quality=qualityRepository.findByQualitynameAndUserid(name,yanCaoUserRepository.findByUsername(principal.getName()).getId());
+
+        System.out.println("huaxue:"+quality.getHuaxueid()+"waiguan"+quality.getWaiguanid()+"pingxi"+quality.getPingxiid());
         HuaXue huaXue=huaXueRepository.findById(quality.getHuaxueid());
         WaiGuan waiGuan=waiGuanRepository.findById(quality.getWaiguanid());
         PingXi pingXi=pingXiRepository.findById(quality.getPingxiid());
@@ -57,101 +103,50 @@ public class QualityController {
 
     @RequestMapping("/updatequality")
     public String UpdateQuality(
-            @RequestParam("sbyyanjian") int sbyyanjian,
-            @RequestParam("zbyyanjian") int zbyyanjian,
-            @RequestParam("xbyyanjian") int xbyyanjian,
-            @RequestParam("zongtang") int zongtang,
-            @RequestParam("huanyuantang") int huanyuantang,
-            @RequestParam("jiahanliang") int jiahanliang,
-            @RequestParam("lvhanliang") int lvhanliang,
-            @RequestParam("niguding") int niguding,
-            @RequestParam("danhanliang") int danhanliang,
-            @RequestParam("xiangqizhi") int xiangqizhi,
-            @RequestParam("xiangqiliang") int xiangqiliang,
-            @RequestParam("zaqi") int zaqi,
-            @RequestParam("cijixing") int cijixing,
-            @RequestParam("yuwei") int yuwei,
-            @RequestParam("ranshaoxing") int ranshaoxing,
-            @RequestParam("huise") int huise,
-            @RequestParam("nongdu") int nongdu,
-            @RequestParam("jintou") int jintou,
-            @RequestParam("chengtuanxing") int chengtuanxing,
-            @RequestParam("xinidu") int xinidu,
-            @RequestParam("huitiangan") int huitiangan,
-            @RequestParam("ganzaodu") int ganzaodu,
-            @RequestParam("yanse_zt") int yanse_zt,
-            @RequestParam("yanse_pf") int yanse_pf,
-            @RequestParam("chengshudu_zt") int chengshudu_zt,
-            @RequestParam("chengshudu_pf") int chengshudu_pf,
-            @RequestParam("youfen_zt") int youfen_zt,
-            @RequestParam("youfen_pf") int youfen_pf,
-            @RequestParam("jiegou_zt") int jiegou_zt,
-            @RequestParam("jiegou_pf") int jiegou_pf,
-            @RequestParam("shenfen_zt") int shenfen_zt,
-            @RequestParam("shenfen_pf") int shenfen_pf,
-            @RequestParam("sedu_zt") int sedu_zt,
-            @RequestParam("sedu_pf") int sedu_pf
-
+           HuaXue huaXue, PingXi pingXi,WaiGuan waiGuan
     ){
-        HuaXue huaXue=huaXueRepository.findById(quality.getHuaxueid());
-        WaiGuan waiGuan=waiGuanRepository.findById(quality.getWaiguanid());
-        PingXi pingXi=pingXiRepository.findById(quality.getPingxiid());
-
-        if(sbyyanjian!=0&&zbyyanjian!=0&&xbyyanjian!=0&&zongtang!=0&&
-                huanyuantang!=0&&jiahanliang!=0&&lvhanliang!=0&&niguding!=0&&
-                danhanliang!=0&&xiangqizhi!=0&&xiangqiliang!=0&&zaqi!=0&&
-                cijixing!=0&&yuwei!=0&&ranshaoxing!=0&&huise!=0&&nongdu!=0&&
-                jintou!=0&&chengtuanxing!=0&&xinidu!=0&&huitiangan!=0&&
-                ganzaodu!=0&&yanse_zt!=0&&yanse_pf!=0&&chengshudu_zt!=0&&
-                chengshudu_pf!=0&&youfen_zt!=0&&youfen_pf!=0&&jiegou_zt!=0&&
-                jiegou_pf!=0&&shenfen_zt!=0&&shenfen_pf!=0&&sedu_zt!=0&&sedu_pf!=0){
+        System.out.println("bianjidehuaxueid"+huaXue.getId());
+        if( huaXue.getId()==0) {
+            huaXue.setId(huaXueRepository.findById(quality.getHuaxueid()).getId());
+            waiGuan.setId(waiGuanRepository.findById(quality.getWaiguanid()).getId());
+            pingXi.setId(pingXiRepository.findById(quality.getPingxiid()).getId());
+        }
+        if(huaXue.getSbyyanjian()!=0&& huaXue.getXbyyanjian()!=0&& huaXue.getZongtang()!=0&&
+                huaXue.getHuanyuantang()!=0&&huaXue.getJia()!=0&&huaXue.getZonglv()!=0&&huaXue.getNiguding()!=0&&
+                huaXue.getZongdan()!=0&&pingXi.getXiangqizhi()!=0&&pingXi.getXiangqiliang()!=0&&pingXi.getZaqi()!=0&&
+                pingXi.getCijixing()!=0&& pingXi.getYuwei()!=0&&pingXi.getRanshaoxing()!=0&&pingXi.getHuidu()!=0&&pingXi.getNongdu()!=0&&
+                pingXi.getJintou()!=0&&pingXi.getChengtuanxing()!=0&&pingXi.getXinidu()!=0&&pingXi.getHuidu()!=0&&
+                pingXi.getGanzaogan()!=0&&waiGuan.getYanse_zt()!=0&&waiGuan.getYanse_pf()!=0&&waiGuan.getChengshudu_zt()!=0&&
+                waiGuan.getChengshudu_pf()!=0&&waiGuan.getYoufen_zt()!=0&&waiGuan.getYoufen_pf()!=0&&waiGuan.getJiegou_zt()!=0&&
+                waiGuan.getJiegou_pf()!=0&&waiGuan.getShenfen_zt()!=0&&waiGuan.getShenfen_pf()!=0&&waiGuan.getSedu_zt()!=0&&waiGuan.getSedu_pf()!=0){
             quality.setFlag(true);
         }
         else
             quality.setFlag(false);
 
-        huaXue.setSbyyanjian(sbyyanjian);
-        huaXue.setZbyyanjian(zbyyanjian);
-        huaXue.setXbyyanjian(xbyyanjian);
-        huaXue.setZongtang(zongtang);
-        huaXue.setHuanyuantang(huanyuantang);
-        huaXue.setJia(jiahanliang);
-        huaXue.setZonglv(lvhanliang);
-        huaXue.setNiguding(niguding);
-        huaXue.setZongdan(danhanliang);
-
-        pingXi.setXiangqizhi(xiangqizhi);
-        pingXi.setXiangqiliang(xiangqiliang);
-        pingXi.setZaqi(zaqi);
-        pingXi.setCijixing(cijixing);
-        pingXi.setYuwei(yuwei);
-        pingXi.setRanshaoxing(ranshaoxing);
-        pingXi.setHuidu(huise);
-        pingXi.setNongdu(nongdu);
-        pingXi.setJintou(jintou);
-        pingXi.setChengtuanxing(chengtuanxing);
-        pingXi.setXinidu(xinidu);
-        pingXi.setHuitiangan(huitiangan);
-        pingXi.setGanzaogan(ganzaodu);
-
-        waiGuan.setYanse_zt(yanse_zt);
-        waiGuan.setYanse_pf(yanse_pf);
-        waiGuan.setChengshudu_pf(chengshudu_pf);
-        waiGuan.setChengshudu_zt(chengshudu_zt);
-        waiGuan.setYoufen_zt(youfen_zt);
-        waiGuan.setYoufen_pf(youfen_pf);
-        waiGuan.setJiegou_zt(jiegou_zt);
-        waiGuan.setJiegou_pf(jiegou_pf);
-        waiGuan.setShenfen_pf(shenfen_pf);
-        waiGuan.setShenfen_zt(shenfen_zt);
-        waiGuan.setSedu_zt(sedu_zt);
-        waiGuan.setSedu_pf(sedu_pf);
         qualityRepository.save(quality);
         huaXueRepository.save(huaXue);
         pingXiRepository.save(pingXi);
         waiGuanRepository.save(waiGuan);
         return "formsuccess";
     }
+
+    @RequestMapping("/editquality")
+    public String EditQuality(Model model,Long  quality_id){
+        //System.out.println("gengxinid:"+quality_id.longValue());
+        Optional<Quality> quality1 =qualityRepository.findById(quality_id);
+        Quality quality =quality1.get();
+        //System.out.println("chadaole:"+quality.getQualityname());
+        WaiGuan waiGuan= waiGuanRepository.findById(quality.getWaiguanid());
+        HuaXue huaXue= huaXueRepository.findById(quality.getHuaxueid());
+        PingXi pingXi = pingXiRepository.findById(quality.getPingxiid());
+       // System.out.println("huaxue waiguan pingxi id"+" "+huaXue.getId()+" "+waiGuan.getId()+" "+pingXi.getId());
+        model.addAttribute("huaxue",huaXue);
+        model.addAttribute("pingxi",pingXi);
+        model.addAttribute("waiguan",waiGuan);
+        return "editthreeform";
+    }
+
     @RequestMapping("/findthreeform")
     public String FindThreeForm(Principal principal,Model model){
         YanCaoRole adminrole=yanCaoRoleRepository.findByRolename("ROLE_ADMIN");
@@ -177,8 +172,9 @@ public class QualityController {
         return "findthreeform";
     }
     @RequestMapping("/deletequality")
-    public @ResponseBody boolean deletequality(Principal principal,String qualityname){
-        Quality quality=qualityRepository.findByQualitynameAndUserid(qualityname,yanCaoUserRepository.findByUsername(principal.getName()).getId());
+    public @ResponseBody boolean deletequality(Principal principal,Long quality_id){
+        quality.setQuality_id(quality_id);
+        qualityRepository.delete(quality);
         waiGuanRepository.delete(waiGuanRepository.findById(quality.getWaiguanid()));
         huaXueRepository.delete(huaXueRepository.findById(quality.getHuaxueid()));
         pingXiRepository.delete(pingXiRepository.findById(quality.getPingxiid()));
@@ -215,6 +211,4 @@ public class QualityController {
     public String fuck(String name){
         return "fuck";
 }
-
-
 }

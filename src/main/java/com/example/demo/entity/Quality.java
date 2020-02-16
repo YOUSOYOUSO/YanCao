@@ -4,6 +4,7 @@ package com.example.demo.entity;
 import com.alibaba.fastjson.JSON;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_quality")
@@ -26,6 +27,10 @@ public class Quality {
     private long pingxiid;
     @Column(name="添加完毕")
     private boolean flag;
+    @Column(name="采购日期")
+    private Date caigouriqi;
+    @Column(name="烟农id")
+    private  long yanonong_id;
 
     private String state;
     public Quality(){
@@ -109,5 +114,23 @@ public class Quality {
     @Override
     public String toString() {
         return JSON.toJSONString(this) + "\n";
+    }
+
+
+
+    public long getYanonong_id() {
+        return yanonong_id;
+    }
+
+    public void setYanonong_id(long yanonong_id) {
+        this.yanonong_id = yanonong_id;
+    }
+
+    public Date getCaigouriqi() {
+        return caigouriqi;
+    }
+
+    public void setCaigouriqi(Date caigouriqi) {
+        this.caigouriqi = caigouriqi;
     }
 }

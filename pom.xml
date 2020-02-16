@@ -57,11 +57,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
             <version>2.1.7.RELEASE</version>
             <optional>true</optional>    <!-- 这个需要为 true 热部署才有效 -->
         </dependency>
-
-
     </dependencies>
     <build>
         <plugins>

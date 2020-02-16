@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/layui.css"  media="all">
 </head>
+<style>
+body{padding: 50px;}
+</style>
+
 <body>
-录入成功点击下列按钮返回
-<a th:href="@{/inputqualityinfo}" class="layui-btn layui-btn-primary">返回</a>
+<div style="padding: 10px;text-align: center">
+    <h2 >录入成功!</h2>
+</div>
+<br>
+<div style="padding: 10px;text-align: center">
+    <h4>点击下列按钮返回</h4>
+</div>
+<br>
+<div style="padding: 20px;text-align: center">
+    <a th:href="@{/inputqualityinfo}" class="layui-btn">再填一份</a>
+    <a th:href="@{/findthreeform}" class="layui-btn">历史表单</a>
+</div>
+
 
 </body>
 </html>

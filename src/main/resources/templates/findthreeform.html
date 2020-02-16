@@ -23,20 +23,23 @@
     </form>
     <thead>
     <tr>
-        <th lay-data="{field:'qualityname', minWidth:300,align: 'center'}" >产品编号</th>
-        <th lay-data="{field:'state', minWidth:150,align: 'center' ,templet:'#statecolor',sort: true}"  >编辑状态</th>
-        <th lay-data="{fixed: 'right', width: 386, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
+        <th lay-data="{field:'quality_id', minWidth:200,align: 'center'}" >产品id</th>
+        <th lay-data="{field:'qualityname', minWidth:200,align: 'center'}" >产品名称</th>
+        <th lay-data="{field:'caigouriqi', minWidth:200,align: 'center'}" >采购日期</th>
+        <th lay-data="{field:'state', minWidth:200,align: 'center' ,templet:'#statecolor',sort: true}"  >编辑状态</th>
+        <th lay-data="{fixed: 'right', width: 200, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
     </tr>
-
     </thead>
     <tbody>
     <tr th:each="quality:${qualities}">
+        <td name="quality_id" th:text="${quality.getQuality_id()}" th:value="${quality.getQuality_id()}" ></td>
         <td name="qualityname" th:text="${quality.getQualityname()}" th:value="${quality.getQualityname()}"></td>
+        <td name="caigouriqi" th:text="${quality.getCaigouriqi()}" th:value="${quality.getCaigouriqi()}"></td>
         <td th:text="${quality.getState()}" ></td>
     </tr>
     </tbody>
 
-</table>
+</table><!---->
 <script type="text/html" id="statecolor">
     {{#  if(d.state === '填写完毕'){ }}
     <span style="color: #2010f5;">{{ d.state }}</span>
@@ -65,21 +68,21 @@
         table.init('cpbh',{});
         table.on('tool(cpbh)', function(obj){
             var data = obj.data;
-            //console.log(obj)
+            console.log(obj)
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
                         url:'deletequality',
                         type:'GET',
                         data:{
-                            qualityname:data.qualityname
+                            quality_id:data.quality_id
                         },
                     })
                     obj.del();
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                location.href="/addquality?name="+data.qualityname;
+                location.href="/editquality?quality_id="+data.quality_id;
             }
         });
     });

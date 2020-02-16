@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="css/layui.css">
 
     <style>
-        body{padding: 10px;}
+        body{padding: 200px;
+        }
+
     </style>
 </head>
 <body>
@@ -26,6 +28,39 @@
             <input type="text" name="name"  class="layui-input">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">采购日期</label>
+        <div class="layui-input-inline">
+            <input  name="date" id="date" lay-verify="date" placeholder=" 年 - 月 - 日" autocomplete="off" class="layui-input" lay-key="1">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">烟农</label>
+        <div class="layui-input-inline">
+
+            <select id="yannong" name="yannong_id" lay-filter="yannong" required lay-verify="required">
+                <option>请选择烟农</option>
+                <option th:each="yannong:${yanNongList}" th:value="${yannong.getName()}" th:text="${yannong.getName()}"></option>
+
+            </select>
+
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">烟田</label>
+        <div class="layui-input-inline">
+
+            <select id="yantian" name="yantian_name" lay-filter="yantian" required lay-verify="required">
+                <option>请选择烟田</option>
+
+            </select>
+
+        </div>
+    </div>
+
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -41,6 +76,8 @@
 <script src="layui.js"></script>
 <!-- <script src="../build/lay/dest/layui.all.js"></script> -->
 
+
+
 <script>
 
     layui.use(['form', 'layedit', 'laydate'], function(){
@@ -48,17 +85,33 @@
             ,layer = layui.layer
             ,layedit = layui.layedit
             ,laydate = layui.laydate;
-
-
+             var $=layui.$;
 
         //日期
         laydate.render({
             elem: '#date'
         });
 
-
-
+            // select下拉框选中触发事件
+            form.on("select(yannong)", function(data){
+                $("#yantian").html("");
+                var val = data.value;
+                console.log(val);
+                $.ajax({
+                    url:"getyantian",
+                    type:"GET",
+                    data:{"yannong_name":val},
+                    success: function (data) {
+                        console.log(data);
+                        $.each(data,function(index,item){
+                            $('#yantian').append(new Option(item.id,item.name));//往下拉菜单里添加元素
+                        })
+                        form.render("select");
+                    }
+                })
+            });
     });
+
 
 </script>
 

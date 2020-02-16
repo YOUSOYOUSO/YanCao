@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="tb_huaxue")//表名
@@ -9,32 +10,33 @@ public class HuaXue {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+
     @Column(name="sbyyanjian")
-    private int sbyyanjian;
+    private double sbyyanjian;
 
     @Column(name="zbyyanjian")
-    private int zbyyanjian;
+    private double zbyyanjian;
 
     @Column(name="xbyyanjian")
-    private int xbyyanjian;
+    private double xbyyanjian;
 
     @Column(name="zongtang")
-    private int zongtang;
+    private double zongtang;
 
     @Column(name="zonglv")
-    private int zonglv;
+    private double zonglv;
 
     @Column(name="niguding")
-    private int niguding;
+    private double niguding;
 
     @Column(name="jia_pf")
-    private int jia;
+    private double jia;
 
     @Column(name="huanyuantang")
-    private int huanyuantang;
+    private double huanyuantang;
 
     @Column(name="zongdan")
-    private int zongdan;
+    private double zongdan;
     public HuaXue(){
         super();
     }
@@ -47,75 +49,78 @@ public class HuaXue {
         this.id = id;
     }
 
-    public int getSbyyanjian() {
-        return sbyyanjian;
-    }
 
-    public void setSbyyanjian(int sbyyanjian) {
-        this.sbyyanjian = sbyyanjian;
-    }
 
-    public int getZbyyanjian() {
+    public double getZbyyanjian() {
         return zbyyanjian;
     }
 
-    public void setZbyyanjian(int zbyyanjian) {
+    public void setZbyyanjian(double zbyyanjian) {
         this.zbyyanjian = zbyyanjian;
     }
 
-    public int getXbyyanjian() {
+    public double getXbyyanjian() {
         return xbyyanjian;
     }
 
-    public void setXbyyanjian(int xbyyanjian) {
+    public void setXbyyanjian(double xbyyanjian) {
         this.xbyyanjian = xbyyanjian;
     }
 
-    public int getZongtang() {
+    public double getZongtang() {
         return zongtang;
     }
 
-    public void setZongtang(int zongtang) {
+    public void setZongtang(double zongtang) {
         this.zongtang = zongtang;
     }
 
-    public int getZonglv() {
+    public double getZonglv() {
         return zonglv;
     }
 
-    public void setZonglv(int zonglv) {
+    public void setZonglv(double zonglv) {
         this.zonglv = zonglv;
     }
 
-    public int getNiguding() {
+    public double getNiguding() {
         return niguding;
     }
 
-    public void setNiguding(int niguding) {
+    public void setNiguding(double niguding) {
         this.niguding = niguding;
     }
 
-    public int getJia() {
+    public double getJia() {
         return jia;
     }
 
-    public void setJia(int jia) {
+    public void setJia(double jia) {
         this.jia = jia;
     }
 
-    public int getHuanyuantang() {
+    public double getHuanyuantang() {
         return huanyuantang;
     }
 
-    public void setHuanyuantang(int huanyuantang) {
+    public void setHuanyuantang(double huanyuantang) {
         this.huanyuantang = huanyuantang;
     }
 
-    public int getZongdan() {
+    public double getZongdan() {
         return zongdan;
     }
 
-    public void setZongdan(int zongdan) {
+    public void setZongdan(double zongdan) {
         this.zongdan = zongdan;
+    }
+
+
+    public double getSbyyanjian() {
+        return sbyyanjian;
+    }
+
+    public void setSbyyanjian(double sbyyanjian) {
+        this.sbyyanjian = sbyyanjian;
     }
 }
