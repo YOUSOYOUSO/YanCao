@@ -25,9 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                 //对/和/login路径不进行拦截
-                .antMatchers("/login","/register","/addadmin","/init").permitAll()
+                .antMatchers("/login","/register","/addadmin").permitAll()
+                .antMatchers("/editweight/**").hasRole("ADMIN")
+                .antMatchers("/inputqualityinfo").hasRole("USER")
                 .anyRequest().authenticated()
-                //.anyRequest().permitAll()
                 .and()
                 .formLogin()
                 //设置登录页面访问的路径/login

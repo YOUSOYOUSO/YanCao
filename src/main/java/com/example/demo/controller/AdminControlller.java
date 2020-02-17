@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
@@ -245,5 +246,43 @@ public class AdminControlller {
         boolean isAdmin = yanCaoUserRepository.findByUsername(principal.getName()).getRoles().get(0).getId() == adminrole.getId();
         model.addAttribute("isAdmin", isAdmin);
         return "index";
+    }
+    @RequestMapping("/editweight")
+    public String editweight(Model model){
+        List<HuaXueWeight> huaXueWeights=huaXueWeightRepository.findAll();
+        List<PingXiWeight> pingXiWeights=pingXiWeightRepository.findAll();
+        List<WaiGuanWeight> waiGuanWeights=waiGuanWeightRepository.findAll();
+        model.addAttribute("huaXueWeights",huaXueWeights);
+        model.addAttribute("pingXiWeights",pingXiWeights);
+        model.addAttribute("waiGuanWeights",waiGuanWeights);
+        return "editweight";
+    }
+    @RequestMapping("/editweight/edithuaxueweight")
+    public @ResponseBody void edithuaxueweight(@RequestParam("name") String name,
+                                               @RequestParam("weight") double weight
+                                               ){
+        HuaXueWeight huaXueWeight=huaXueWeightRepository.findByName(name);
+        System.out.println("这里:"+name);
+        huaXueWeight.setWeight(weight);
+        huaXueWeightRepository.save(huaXueWeight);
+    }
+    @RequestMapping("/editweight/editpingxiweight")
+    public @ResponseBody void editpingxiweight(@RequestParam("name") String name,
+                                               @RequestParam("describes") String describes,
+                                               @RequestParam("score") int score
+    ){
+        PingXiWeight pingXiWeight=pingXiWeightRepository.findByNameAndDescribes(name,describes);
+        pingXiWeight.setScore(score);
+        pingXiWeightRepository.save(pingXiWeight);
+    }
+    @RequestMapping("/editweight/editwaiguanweight")
+    public @ResponseBody void editwaiguanweight(@RequestParam("name") String name,
+                                               @RequestParam("describes") String describes,
+                                                @RequestParam("values") String values,
+                                               @RequestParam("score") int score
+    ){
+       WaiGuanWeight waiGuanWeight=waiGuanWeightRepository.findByNameAndDescribesAndValues(name, describes, values);
+       waiGuanWeight.setScore(score);
+       waiGuanWeightRepository.save(waiGuanWeight);
     }
 }
