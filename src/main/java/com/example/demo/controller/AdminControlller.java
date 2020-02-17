@@ -6,6 +6,7 @@ import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminControlller {
@@ -29,7 +31,8 @@ public class AdminControlller {
     YanCaoRoleRepository yanCaoRoleRepository;
     @Autowired
     YanCaoUserRepository yanCaoUserRepository;
-
+    @Autowired
+    YanNongRepository yanNongRepository;
     @RequestMapping("")
     public String init(Principal principal, Model model) {
 
@@ -284,5 +287,41 @@ public class AdminControlller {
        WaiGuanWeight waiGuanWeight=waiGuanWeightRepository.findByNameAndDescribesAndValues(name, describes, values);
        waiGuanWeight.setScore(score);
        waiGuanWeightRepository.save(waiGuanWeight);
+    }
+    @RequestMapping("/findyannong")
+    public String edityannong(Model model){
+
+        List<YanNong> yannongList= yanNongRepository.selectDistinctYanNongName();
+        model.addAttribute("yannongList",yannongList);
+        return "findyannong";
+    }
+    @RequestMapping("/deleteyannong")
+    @Transactional
+    @ResponseBody
+    public void deleteyannong(String yannongname){
+        System.out.println(yannongname);
+        yanNongRepository.deleteByName(yannongname);
+    }
+    @RequestMapping("/edityannong")
+    public String edityannong(Model model ,String yannongname){
+        List<YanNong> yannongList= yanNongRepository.selectByYanNongName(yannongname);
+        model.addAttribute("yannongList",yannongList);
+        return  "edityannong";
+    }
+    @RequestMapping("/edityantian")
+    @ResponseBody
+    public void edityantian(Long yannongid, String yantian){
+        Optional<YanNong> yanNong=yanNongRepository.findById(yannongid);
+        YanNong yanNong1 = yanNong.get();
+        System.out.println(yanNong1.getName()+yanNong1.getYantian());
+        yanNong1.setYantian(yantian);
+        yanNongRepository.save(yanNong1);
+    }
+    @RequestMapping("/deleteyantian")
+    @ResponseBody
+    public void deleteyantian(Long yannongid){
+        YanNong yanNong=new YanNong();
+        yanNong.setId(yannongid);
+        yanNongRepository.delete(yanNong);
     }
 }

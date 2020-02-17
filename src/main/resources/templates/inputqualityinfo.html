@@ -105,7 +105,7 @@
                     success: function (data) {
                         console.log(data);
                         $.each(data,function(index,item){
-                            $('#yantian').append(new Option(item.id,item.name));//往下拉菜单里添加元素
+                            $('#yantian').append(new Option(item.yantian,item.yantian));//往下拉菜单里添加元素
                         })
                         form.render("select");
                     }

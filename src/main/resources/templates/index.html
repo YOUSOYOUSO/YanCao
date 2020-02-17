@@ -35,7 +35,7 @@
                     <a class="" href="javascript:;">表单管理</a>
                     <dl class="layui-nav-child">
                        <dd> <a th:if="${!isAdmin}" th:href="@{/inputqualityinfo}" target="right">录入新样品</a></dd>
-                        <dd> <a th:if="${!isAdmin}" th:href="@{/edityannong}" target="right">烟农管理</a></dd>
+                        <dd> <a th:if="${isAdmin}" th:href="@{/findyannong}" target="right">烟农管理</a></dd>
                         <dd><a th:href="@{/findthreeform}" target="right">样品信息编辑</a></dd>
                         <dd><a href="javascript:;">数据分析</a></dd>
                     </dl>
