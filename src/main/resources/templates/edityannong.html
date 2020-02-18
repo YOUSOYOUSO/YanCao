@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<table lay-filter="yantian" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table'}" id="yannongxinxi">
+    <form class="layui-form layui-form-pane1" th:action="@{/findyannonglike}"  >
+        <div class="layui-form-item" style="padding-left: 10px;padding-top: 10px" >
+            <label class="layui-form-label">搜索烟农</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" name="key"  autocomplete="off">
+            </div>
+            <button class="layui-btn" type="submit" >搜索</button> <button class="layui-btn"  >新增烟田</button>
+
+        </div>
+    </form>
+
+    <thead>
+    <tr>
+        <th lay-data="{field:'yannongid', minWidth:200,align: 'center,hide:true'}" id="yannongid"  >烟田ID</th>
+        <th lay-data="{field:'yannongname',edit: 'text', minWidth:200,align: 'center'}" >烟烟农名称</th>
+        <th lay-data="{field:'yantian',edit: 'text', minWidth:200,align: 'center'}" >烟田名称（可编辑）</th>
+        <th lay-data="{fixed: 'right', width: 200, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="yannong:${yannongList}">
+        <td name="yannongid" th:text="${yannong.getId()}" th:value="${yannong.getId()}"></td>
+        <td name="yannongname" th:text="${yannong.getName()}" th:value="${yannong.getName()}"></td>
+        <td name="yantian" th:text="${yannong.getYantian()}" th:value="${yannong.getYantian()}"></td>
+    </tr>
+    </tbody>
+
+</table><!---->
+
+<script type="text/html" id="barDemo">
+
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
+</script>
+
+<script src="layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+
+    layui.use(['table', 'form', 'layer','upload'], function () {
+        var table = layui.table,
+            layer = layui.layer,
+            upload = layui.upload,
+            $ = layui.jquery,
+            form = layui.form;
+        var table = layui.table;
+
+        $("[data-field='yannongid']").css('dispaly','none');
+
+        table.init('yantian',{
+
+        });
+        table.on('tool(yantian)', function(obj){
+            var data = obj.data;
+            console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
+                        url:'deleteyantian',
+                        type:'GET',
+                        data:{
+                            yannongid:data.yannongid,
+                        },
+                    })
+                    obj.del();
+                    layer.close(index);
+                });
+            }
+        });
+
+        table.on('edit(yantian)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data; //得到所在行所有键值
+            console.log(data);
+            $.ajax({
+                url:'edityantian',
+                type:'GET',
+                data:{
+                    yannongid:data.yannongid,
+                    yantian:value
+                },
+            })
+            layer.msg('烟田名称更改为：'+ value);
+        });
+
+    });
+</script>
+
+</body>
+</html>

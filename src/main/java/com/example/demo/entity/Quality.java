@@ -31,6 +31,8 @@ public class Quality {
     private Date caigouriqi;
     @Column(name="烟农id")
     private  long yanonong_id;
+    @Column(name = "yantian")
+    private  String yantian;
 
     private String state;
     public Quality(){

@@ -13,4 +13,7 @@ public interface YanNongRepository extends JpaRepository<YanNong,Long> {
 
     @Query("select distinct y from YanNong y where y.name =?1")
     List<YanNong> selectByYanNongName(String name);
+
+    void deleteByName(String name);
+    YanNong findByNameAndAndYantian(String name,String yantian);
 }

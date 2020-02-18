@@ -22,6 +22,9 @@ public class YanNong {
         this.yantian = yantian;
     }
 
+    public void setId(long id){
+            this.id =id;
+    }
     public String getYantian() {
         return yantian;
     }
