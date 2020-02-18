@@ -75,7 +75,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label-2">钾含量%</label>
                         <div class="layui-input-block-1">
-                            <input type="text" th:value="${huaxue.getJia()}" name="jiahanliang" placeholder="输入0-100"  class="layui-input">
+                            <input type="text" th:value="${huaxue.getJia()}" name="jia" placeholder="输入0-100"  class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label-2">氯含量%</label>
                         <div class="layui-input-block-1">
-                            <input type="text" th:value="${huaxue.getZonglv()}" name="lvhanliang" placeholder="输入0-100"  class="layui-input">
+                            <input type="text" th:value="${huaxue.getZonglv()}" name="zonglv" placeholder="输入0-100"  class="layui-input">
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label-2">氮含量%</label>
                         <div class="layui-input-block-1">
-                            <input type="text" th:value="${huaxue.getZongdan()}" name="danhanliang" placeholder="输入0-100"  class="layui-input">
+                            <input type="text" th:value="${huaxue.getZongdan()}" name="zongdan" placeholder="输入0-100"  class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">灰色</label>
                         <div class="layui-input-block">
-                            <select name="huise" lay-verify="required" lay-verType="tips" id="huise">
+                            <select name="huidu" lay-verify="required" lay-verType="tips" id="huise">
                                 <option name="yszt" value="0">请选择</option>
                                 <option name="yszt" value="1">白</option>
                                 <option name="yszt" value="2">灰白</option>
@@ -303,7 +303,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">干燥感</label>
                         <div class="layui-input-block">
-                            <select name="ganzaodu" lay-verify="required" lay-verType="tips" id="ganzaogan">
+                            <select name="ganzaogan" lay-verify="required" lay-verType="tips" id="ganzaogan">
                                 <option name="yszt" value="0">请选择</option>
                                 <option name="yszt" value="1">弱</option>
                                 <option name="yszt" value="2">较弱</option>

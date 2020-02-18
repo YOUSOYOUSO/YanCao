@@ -75,7 +75,7 @@ public class QualityController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (qualityRepository.countByQualitynameAndUserid(name, yanCaoUserRepository.findByUsername(principal.getName()).getId()) == 0) {
+        if (qualityRepository.countByQualitynameAndCaigouriqiAndYannongnameAndYantianAndUserid(name,date1,yannongname,yantian, yanCaoUserRepository.findByUsername(principal.getName()).getId()) == 0) {
             PingXi pingXi = new PingXi();
             HuaXue huaXue = new HuaXue();
             WaiGuan waiGuan = new WaiGuan();
@@ -94,7 +94,7 @@ public class QualityController {
             qualityRepository.save(quality);
         }
 
-        this.quality = qualityRepository.findByQualitynameAndUserid(name, yanCaoUserRepository.findByUsername(principal.getName()).getId());
+        this.quality = qualityRepository.findByQualitynameAndCaigouriqiAndYannongnameAndYantianAndUserid(name,date1,yannongname,yantian, yanCaoUserRepository.findByUsername(principal.getName()).getId());
 
         System.out.println("huaxue:" + quality.getHuaxueid() + "waiguan" + quality.getWaiguanid() + "pingxi" + quality.getPingxiid());
         HuaXue huaXue = huaXueRepository.findById(quality.getHuaxueid());
@@ -140,7 +140,7 @@ public class QualityController {
     public String EditQuality(Model model, Long quality_id) {
         //System.out.println("gengxinid:"+quality_id.longValue());
         Optional<Quality> quality1 = qualityRepository.findById(quality_id);
-        Quality quality = quality1.get();
+        this.quality = quality1.get();
         //System.out.println("chadaole:"+quality.getQualityname());
         WaiGuan waiGuan = waiGuanRepository.findById(quality.getWaiguanid());
         HuaXue huaXue = huaXueRepository.findById(quality.getHuaxueid());
@@ -180,7 +180,8 @@ public class QualityController {
     @RequestMapping("/deletequality")
     public @ResponseBody
     boolean deletequality(Principal principal, Long quality_id) {
-        quality.setQuality_id(quality_id);
+        Optional<Quality> quality1 = qualityRepository.findById(quality_id);
+        this.quality = quality1.get();
         qualityRepository.delete(quality);
         waiGuanRepository.delete(waiGuanRepository.findById(quality.getWaiguanid()));
         huaXueRepository.delete(huaXueRepository.findById(quality.getHuaxueid()));
@@ -215,12 +216,20 @@ public class QualityController {
         }
         return "findthreeform";
     }
-    @RequestMapping("/test")
-    public @ResponseBody void test(){
+    @RequestMapping("/evaluate")
+    public @ResponseBody String Evaluate(long quality_id){
+        Optional<Quality> quality1 = qualityRepository.findById(quality_id);
+        this.quality = quality1.get();
+        if(quality.isFlag())
+            return this.Evaluate();
+        else
+            return "数据未填写完整。";
+    }
+    public String Evaluate(){
         String evaluate = new String();
-        HuaXue huaXue=huaXueRepository.findById(1);
-        PingXi pingXi=pingXiRepository.findById(1);
-        WaiGuan waiGuan=waiGuanRepository.findById(1);
+        HuaXue huaXue=huaXueRepository.findById(quality.getHuaxueid());
+        PingXi pingXi=pingXiRepository.findById(quality.getPingxiid());
+        WaiGuan waiGuan=waiGuanRepository.findById(quality.getWaiguanid());
         List<HuaXueWeight> huaXueWeights=huaXueWeightRepository.findAll();
         double[] huaXueValue=huaXue.getArray();
         evaluate=evaluate+"化学状态:\n";
@@ -273,5 +282,6 @@ public class QualityController {
                 evaluate=evaluate+"。";
         }
         System.out.println(evaluate);
+        return evaluate;
     }
 }
