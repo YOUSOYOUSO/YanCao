@@ -38,15 +38,15 @@ public class AdminControlller {
 
         if (huaXueWeightRepository.count() == 0) {
 
-            huaXueWeightRepository.save(new HuaXueWeight("上部叶烟碱", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("中部叶烟碱", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("下部叶烟碱", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("总糖", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("还原糖", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("钾", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("氯", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("尼古丁", 1));
-            huaXueWeightRepository.save(new HuaXueWeight("氮", 1));
+            huaXueWeightRepository.save(new HuaXueWeight("上部叶烟碱", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("中部叶烟碱", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("下部叶烟碱", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("总糖", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("还原糖", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("钾", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("氯", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("尼古丁", 1,0));
+            huaXueWeightRepository.save(new HuaXueWeight("氮", 1,0));
 
             pingXiWeightRepository.save(new PingXiWeight("香气质", "好", 1, 7));
             pingXiWeightRepository.save(new PingXiWeight("香气质", "较好", 2, 6));
@@ -86,10 +86,10 @@ public class AdminControlller {
             pingXiWeightRepository.save(new PingXiWeight("燃烧性", "中等", 2, 2));
             pingXiWeightRepository.save(new PingXiWeight("燃烧性", "差+", 3, 1));
             pingXiWeightRepository.save(new PingXiWeight("燃烧性", "熄火", 4, 0));
-            pingXiWeightRepository.save(new PingXiWeight("灰色", "白", 1, 4));
-            pingXiWeightRepository.save(new PingXiWeight("灰色", "灰白", 2, 3));
-            pingXiWeightRepository.save(new PingXiWeight("灰色", "灰", 3, 2));
-            pingXiWeightRepository.save(new PingXiWeight("灰色", "黑灰", 4, 1));
+            pingXiWeightRepository.save(new PingXiWeight("灰度", "白", 1, 4));
+            pingXiWeightRepository.save(new PingXiWeight("灰度", "灰白", 2, 3));
+            pingXiWeightRepository.save(new PingXiWeight("灰度", "灰", 3, 2));
+            pingXiWeightRepository.save(new PingXiWeight("灰度", "黑灰", 4, 1));
             pingXiWeightRepository.save(new PingXiWeight("浓度", "淡", 1, 5));
             pingXiWeightRepository.save(new PingXiWeight("浓度", "较淡", 2, 4));
             pingXiWeightRepository.save(new PingXiWeight("浓度", "中等", 3, 3));
@@ -262,11 +262,13 @@ public class AdminControlller {
     }
     @RequestMapping("/editweight/edithuaxueweight")
     public @ResponseBody void edithuaxueweight(@RequestParam("name") String name,
-                                               @RequestParam("weight") double weight
+                                               @RequestParam("high") double high,
+                                               @RequestParam("low") double low
                                                ){
         HuaXueWeight huaXueWeight=huaXueWeightRepository.findByName(name);
         System.out.println("这里:"+name);
-        huaXueWeight.setWeight(weight);
+        huaXueWeight.setHigh(high);
+        huaXueWeight.setLow(low);
         huaXueWeightRepository.save(huaXueWeight);
     }
     @RequestMapping("/editweight/editpingxiweight")

@@ -48,7 +48,10 @@ public class WaiGuan {
     private int sedu_pf;
 
 
-
+    public int[] getArray(){
+        int[] array=new int[]{yanse_zt,chengshudu_zt,youfen_zt,jiegou_zt,shenfen_zt,sedu_zt};
+        return array;
+    }
     public WaiGuan(){
         super();
     }

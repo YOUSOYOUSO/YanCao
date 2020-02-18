@@ -10,17 +10,19 @@ public class HuaXueWeight {
     private long id;
     @Column(name="化学名")
     private String name;
-    @Column(name="权重")
-    private double weight;
+    @Column(name="上限")
+    private double high;
+    @Column(name="下限")
+    private double low;
 
     public HuaXueWeight() {
         super();
     }
 
-    public HuaXueWeight(String name, double weight) {
-        super();
+    public HuaXueWeight(String name, double high, double low) {
         this.name = name;
-        this.weight = weight;
+        this.high = high;
+        this.low = low;
     }
 
     public long getId() {
@@ -39,11 +41,19 @@ public class HuaXueWeight {
         this.name = name;
     }
 
-    public double getWeight() {
-        return weight;
+    public double getHigh() {
+        return high;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setHigh(double high) {
+        this.high = high;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public void setLow(double low) {
+        this.low = low;
     }
 }

@@ -50,6 +50,11 @@ public class HuaXue {
     }
 
 
+public double[] getArray(){
+        double[] array;
+        array= new double[]{sbyyanjian, zbyyanjian,xbyyanjian,zongtang,huanyuantang,jia,zonglv,niguding,zongdan};
+    return array;
+}
 
     public double getZbyyanjian() {
         return zbyyanjian;

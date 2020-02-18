@@ -23,9 +23,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity)throws Exception{
         httpSecurity
+                .csrf().disable()
                 .authorizeRequests()
                 //对/和/login路径不进行拦截
-                .antMatchers("/login","/register","/addadmin").permitAll()
+                .antMatchers("/login","/register","/addadmin","/test").permitAll()
                 .antMatchers("/editweight/**").hasRole("ADMIN")
                 .antMatchers("/inputqualityinfo").hasRole("USER")
                 .anyRequest().authenticated()
@@ -70,5 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**");
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/bootstrap/**");
+        web.ignoring().antMatchers("/layui.js");
     }
 }
