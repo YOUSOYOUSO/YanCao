@@ -47,6 +47,10 @@ public class PingXi {
 
     @Column(name = "ganzaogan")//干燥感状态
     private int ganzaogan;
+    public int[] getArray(){
+        int[] array=new int[]{xiangqizhi,xiangqiliang,zaqi,cijixing,yuwei,ranshaoxing,huidu,nongdu,jintou,chengtuanxing,xinidu,huitiangan,ganzaogan};
+        return array;
+    }
     public PingXi(){
         super();
     }

@@ -32,6 +32,12 @@ public class QualityController {
     WaiGuanRepository waiGuanRepository;
     @Autowired
     YanNongRepository yanNongRepository;
+    @Autowired
+    HuaXueWeightRepository huaXueWeightRepository;
+    @Autowired
+    PingXiWeightRepository pingXiWeightRepository;
+    @Autowired
+    WaiGuanWeightRepository waiGuanWeightRepository;
 
 
     private Quality quality;
@@ -207,5 +213,64 @@ public class QualityController {
             model.addAttribute("qualities", qualities);
         }
         return "findthreeform";
+    }
+    @RequestMapping("/test")
+    public @ResponseBody void test(){
+        String evaluate = new String();
+        HuaXue huaXue=huaXueRepository.findById(1);
+        PingXi pingXi=pingXiRepository.findById(1);
+        WaiGuan waiGuan=waiGuanRepository.findById(1);
+        List<HuaXueWeight> huaXueWeights=huaXueWeightRepository.findAll();
+        double[] huaXueValue=huaXue.getArray();
+        evaluate=evaluate+"化学状态:\n";
+        int count=0;
+        for(int i=0;i<9;i++){
+            if(huaXueValue[i]>=huaXueWeights.get(i).getLow()&&huaXueValue[i]<=huaXueWeights.get(i).getHigh()){
+                if(count!=0)
+                    evaluate=evaluate+",";
+                evaluate=evaluate+huaXueWeights.get(i).getName();
+                count++;
+            }
+        }
+        if(count!=0)
+            evaluate=evaluate+"含量合格;\n";
+        count=0;
+        for(int i=0;i<9;i++){
+            if(huaXueValue[i]<huaXueWeights.get(i).getLow()||huaXueValue[i]>huaXueWeights.get(i).getHigh()){
+                if(count!=0)
+                    evaluate=evaluate+",";
+                evaluate=evaluate+huaXueWeights.get(i).getName();
+                count++;
+            }
+        }
+        if(count!=0)
+            evaluate=evaluate+"含量不合格;\n";
+        evaluate=evaluate+"评析状态:\n";
+        String[] s1=new String[]{"香气质","香气量","杂气","刺激性","余味","燃烧性","灰度","浓度","劲头","成团性","细腻感","回甜感","干燥感"};
+        int[] a1=pingXi.getArray();
+        count=0;
+        for(int i=0;i<13;i++){
+            evaluate=evaluate+s1[i]+pingXiWeightRepository.findByNameAndDescribe(s1[i],a1[i]).getDescribes();
+            if(i<12)
+                evaluate=evaluate+",";
+            else
+                evaluate=evaluate+";\n";
+            count++;
+            if(count==5){
+                evaluate=evaluate+"\n";
+                count=0;
+            }
+        }
+        evaluate=evaluate+"外观状态:\n";
+        String[] s2=new String[]{"颜色","成熟度","油分","结构","身份","色度"};
+        int[] a2=waiGuan.getArray();
+        for(int i=0;i<6;i++){
+            evaluate=evaluate+s2[i]+waiGuanWeightRepository.findByNameAndDescribe(s2[i],a2[i]).get(0).getDescribes();
+            if(i<5)
+                evaluate=evaluate+",";
+            else
+                evaluate=evaluate+"。";
+        }
+        System.out.println(evaluate);
     }
 }

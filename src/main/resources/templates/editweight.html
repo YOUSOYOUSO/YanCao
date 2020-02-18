@@ -32,13 +32,15 @@
     <thead>
     <tr>
         <th lay-data="{field:'name', minWidth:200,align: 'center',sort: true}" >名称</th>
-        <th lay-data="{field:'weight', edit: 'text',minWidth:200,align: 'center'}" >权重(可修改)</th>
+        <th lay-data="{field:'low', edit: 'text',minWidth:200,align: 'center'}" >下限(可修改)</th>
+        <th lay-data="{field:'high', edit: 'text',minWidth:200,align: 'center'}" >上限(可修改)</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="huaXueWeight:${huaXueWeights}">
         <td name="huaXueWeight_Name" th:text="${huaXueWeight.getName()}" th:value="${huaXueWeight.getName()}" ></td>
-        <td name="huaXueWeight_Weight" th:text="${huaXueWeight.getWeight()}" th:value="${huaXueWeight.getWeight()}"></td>
+        <td name="huaXueWeight_High" th:text="${huaXueWeight.getLow()}" th:value="${huaXueWeight.getLow()}"></td>
+        <td name="huaXueWeight_Low" th:text="${huaXueWeight.getHigh()}" th:value="${huaXueWeight.getHigh()}"></td>
     </tr>
     </tbody>
 
@@ -92,22 +94,33 @@
 
 <script src="layui.js"></script>
 <script>
-    layui.use(['table','element'], function(){
+    layui.use(['table','element','layer'], function(){
         var table = layui.table,
+            layer = layui.layer,
         $ = layui.jquery;
         //监听单元格编辑
         table.on('edit(huaxue)', function(obj){
-            var value = obj.value //得到修改后的值
-                ,data = obj.data; //得到所在行所有键值
+            var value=obj.value,
+                data = obj.data;//得到所在行所有键值
+            if(data.high<data.low)
+            {
+                layer.alert("上限小于下限!更改失败！",{
+                    title:"错误提示"
+                });
+
+            }else
+            {
             $.ajax({
                 url:'editweight/edithuaxueweight',
                 type:'GET',
                 data:{
                     name:data.name,
-                    weight:value
+                    high:data.high,
+                    low:data.low
                 },
             })
-            layer.msg('化学【'+data.name +'】权重更改为：'+ value);
+            layer.msg('化学【'+data.name +'】合格范围更改为：'+ "["+data.low+","+data.high+"]");
+            }
         });
         table.on('edit(pingxi)', function(obj){
             var value = obj.value //得到修改后的值
