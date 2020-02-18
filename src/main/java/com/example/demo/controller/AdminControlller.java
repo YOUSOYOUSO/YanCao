@@ -33,6 +33,8 @@ public class AdminControlller {
     YanCaoUserRepository yanCaoUserRepository;
     @Autowired
     YanNongRepository yanNongRepository;
+    @Autowired
+    QualityRepository qualityRepository;
     @RequestMapping("")
     public String init(Principal principal, Model model) {
 
@@ -320,10 +322,25 @@ public class AdminControlller {
         }else {
             Optional<YanNong> yanNong= yanNongRepository.findById(yannongid);
             YanNong yanNong1 =yanNong.get();
-            yanNong1.setName(yannongname);
-            // System.out.println("yaogengxindeid"+yanNong1.getId());
-            yanNong1.setId(yannongid);
-            yanNongRepository.save(yanNong1);
+            String oldname=yanNong1.getName();
+
+            List<YanNong> yanNongList=yanNongRepository.findAllByName(oldname);
+            System.out.println(yanNongList.size());
+            for (YanNong yanNonga: yanNongList
+                 ) {
+                yanNonga.setName(yannongname);
+                // System.out.println("yaogengxindeid"+yanNong1.getId());
+                yanNongRepository.save(yanNonga);
+            }
+
+            List<Quality> qualityList= qualityRepository.findAllByYannongname(oldname);
+            //System.out.println("烟农名称："+yannongname+"有这么多个"+qualityList.size());
+            for (Quality quality:qualityList
+                 ) {
+              //  System.out.println("正在更改这个quality的烟农："+quality.getQualityname());
+                quality.setYannongname(yannongname);
+                qualityRepository.save(quality);
+            }
         }
     }
     @RequestMapping("/updateyantian")
@@ -338,8 +355,16 @@ public class AdminControlller {
         }else {
             Optional<YanNong> yanNong=yanNongRepository.findById(yantianid);
             YanNong yanNong1 = yanNong.get();
+            String oldname=yanNong1.getYantian();
             yanNong1.setYantian(yantian);
             yanNongRepository.save(yanNong1);
+            List<Quality> qualityList= qualityRepository.findAllByYannongnameAndYantian(yannongname,oldname);
+            for (Quality quality:qualityList
+            ) {
+                System.out.println("正在更改这个quality的烟田："+quality.getQualityname());
+                quality.setYantian(yantian);
+                qualityRepository.save(quality);
+            }
         }
     }
     @RequestMapping("/deleteyantian")

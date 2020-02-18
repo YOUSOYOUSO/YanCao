@@ -16,4 +16,5 @@ public interface YanNongRepository extends JpaRepository<YanNong,Long> {
 
     void deleteByName(String name);
     YanNong findByNameAndAndYantian(String name,String yantian);
+    List<YanNong> findAllByName(String name);
 }
