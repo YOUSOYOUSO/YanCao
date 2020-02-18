@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<table lay-filter="cpbh" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table'}" id="tb_yannong">
+<table lay-filter="cpbh" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table',toolbar:true}" id="tb_yannong">
     <form class="layui-form layui-form-pane1" th:action="@{/findyannonglike}"  >
         <div class="layui-form-item" style="padding-left: 10px;padding-top: 10px" >
             <label class="layui-form-label">搜索烟农</label>
@@ -49,12 +49,12 @@
             $ = layui.jquery,
             form = layui.form;
 
-        table.render(
+      /*  table.render(
             {
                 elem:'#tb_yannong',
                 toolbar:true
             }
-        );
+        );*/
         table.init('cpbh',{});
 
 
