@@ -29,8 +29,8 @@ public class Quality {
     private boolean flag;
     @Column(name="采购日期")
     private Date caigouriqi;
-    @Column(name="烟农id")
-    private  long yanonong_id;
+    @Column(name="烟农名称")
+    private  String yannongname;
     @Column(name = "yantian")
     private  String yantian;
 
@@ -120,19 +120,28 @@ public class Quality {
 
 
 
-    public long getYanonong_id() {
-        return yanonong_id;
-    }
-
-    public void setYanonong_id(long yanonong_id) {
-        this.yanonong_id = yanonong_id;
-    }
-
     public Date getCaigouriqi() {
         return caigouriqi;
     }
 
     public void setCaigouriqi(Date caigouriqi) {
         this.caigouriqi = caigouriqi;
+    }
+
+    public String getYantian() {
+        return yantian;
+    }
+
+    public void setYantian(String yantian) {
+        this.yantian = yantian;
+    }
+
+
+    public String getYannongname() {
+        return yannongname;
+    }
+
+    public void setYannongname(String yannongname) {
+        this.yannongname = yannongname;
     }
 }

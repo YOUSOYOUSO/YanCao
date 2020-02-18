@@ -58,9 +58,9 @@ public class QualityController {
     }
 
     @RequestMapping("/addquality")
-    public String addQuality(Principal principal, Model model, String name, String date, Long yannong_id, String yantian) {
+    public String addQuality(Principal principal, Model model, String name, String date, String yannongname, String yantian) {
 //name要对上
-        System.out.println("用户名：" + principal.getName() + date + yannong_id);
+        System.out.println("用户名：" + principal.getName() + date + yannongname + yantian);
 
         Date date1 = null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD");
@@ -83,7 +83,8 @@ public class QualityController {
                     pingXi.getId(),
                     false);
             quality.setCaigouriqi(date1);
-            quality.setYanonong_id(yannong_id);
+            quality.setYannongname(yannongname);
+            quality.setYantian(yantian);
             qualityRepository.save(quality);
         }
 

@@ -41,7 +41,7 @@
         <label class="layui-form-label">烟农</label>
         <div class="layui-input-inline">
 
-            <select id="yannong" name="yannong_id" lay-filter="yannong" required lay-verify="required">
+            <select id="yannong" name="yannongname" lay-filter="yannong" required lay-verify="required">
                 <option>请选择烟农</option>
                 <option th:each="yannong:${yanNongList}" th:value="${yannong.getName()}" th:text="${yannong.getName()}"></option>
 
@@ -54,7 +54,7 @@
         <label class="layui-form-label">烟田</label>
         <div class="layui-input-inline">
 
-            <select id="yantian" name="yantian_name" lay-filter="yantian" required lay-verify="required">
+            <select id="yantian" name="yantian" lay-filter="yantian" required lay-verify="required">
                 <option>请选择烟田</option>
 
             </select>
