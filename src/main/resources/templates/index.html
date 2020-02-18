@@ -39,7 +39,7 @@
                         <dd><a href="javascript:;">  数据分析</a></dd>
 
                     </dl>
-                    <a class="" href="javascript:;">用户管理</a>
+                    <a th:if="${isAdmin}" class="" href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
                         <dd> <a th:if="${isAdmin}" th:href="@{/findyannong}" target="right">烟农管理</a></dd>
                     </dl>

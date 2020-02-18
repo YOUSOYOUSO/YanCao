@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<table lay-filter="cpbh" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table'}">
+<table lay-filter="cpbh" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table'}" id="tb_yannong">
     <form class="layui-form layui-form-pane1" th:action="@{/findyannonglike}"  >
         <div class="layui-form-item" style="padding-left: 10px;padding-top: 10px" >
             <label class="layui-form-label">搜索烟农</label>
@@ -16,6 +16,7 @@
                 <input class="layui-input" name="key"  autocomplete="off">
             </div>
             <button class="layui-btn" type="submit" >搜索</button>
+            <button class="layui-btn" >新增烟农</button>
         </div>
     </form>
     <thead>
@@ -48,6 +49,12 @@
             $ = layui.jquery,
             form = layui.form;
 
+        table.render(
+            {
+                elem:'#tb_yannong',
+                toolbar:true
+            }
+        );
         table.init('cpbh',{});
 
 
@@ -70,6 +77,7 @@
                 location.href="/edityannong?yannongname="+data.yannongname;
             }
         });
+
     });
 </script>
 

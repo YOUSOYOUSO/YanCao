@@ -145,7 +145,7 @@ public class QualityController {
         WaiGuan waiGuan = waiGuanRepository.findById(quality.getWaiguanid());
         HuaXue huaXue = huaXueRepository.findById(quality.getHuaxueid());
         PingXi pingXi = pingXiRepository.findById(quality.getPingxiid());
-        // System.out.println("huaxue waiguan pingxi id"+" "+huaXue.getId()+" "+waiGuan.getId()+" "+pingXi.getId());
+        System.out.println("huaxue waiguan pingxi id"+" "+huaXue.getId()+" "+waiGuan.getId()+" "+pingXi.getId());
         model.addAttribute("huaxue", huaXue);
         model.addAttribute("pingxi", pingXi);
         model.addAttribute("waiguan", waiGuan);
