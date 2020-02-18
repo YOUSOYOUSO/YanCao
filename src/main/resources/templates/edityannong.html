@@ -8,29 +8,31 @@
 </head>
 <body>
 
-<table lay-filter="yantian" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table'}" id="yannongxinxi">
-    <form class="layui-form layui-form-pane1" th:action="@{/findyannonglike}"  >
-        <div class="layui-form-item" style="padding-left: 10px;padding-top: 10px" >
-            <label class="layui-form-label">搜索烟农</label>
+<script type="text/html" id="toolbarDemo">
+    <form class="layui-form layui-form-pane1"   >
+        <div class="layui-form-item" >
             <div class="layui-input-inline">
-                <input class="layui-input" name="key"  autocomplete="off">
+                <input class="layui-input" name="key" style="height: 30px" autocomplete="off"  placeholder="请输入烟田名">
             </div>
-            <button class="layui-btn" type="submit" >搜索</button> <button class="layui-btn"  >新增烟田</button>
-
+            <button class="layui-btn layui-btn-sm" lay-event="searchyannonglike">搜索</button>
+            <button class="layui-btn layui-btn-sm" lay-event="addyannong" >新增烟田</button>
         </div>
     </form>
+</script>
+
+<table lay-filter="tb_yantian" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'tb_yantian',toolbar:'#toolbarDemo'}" id="tb_yantian">
 
     <thead>
     <tr>
-        <th type="hidden" lay-data="{field:'yannongid', minWidth:200,align: 'center,hide:true'}" id="yannongid"  >烟田ID</th>
-        <th lay-data="{field:'yannongname', minWidth:200,align: 'center'}" >烟农名称</th>
-        <th lay-data="{field:'yantian',edit: 'text', minWidth:200,align: 'center'}" >烟田名称（可编辑）</th>
+        <th lay-data="{field:'yantianid', minWidth:200,align: 'center', hide:true}" id="yantianid"  >烟田ID</th>
+        <th lay-data="{field:'yannongname', minWidth:200,align: 'center', hide:true}" id="yannongname"  >烟农名称</th>
+        <th lay-data="{field:'yantian',edit:'text', minWidth:200,align: 'center'}" >烟田名称（可编辑）</th>
         <th lay-data="{fixed: 'right', width: 200, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="yannong:${yannongList}">
-        <td name="yannongid" th:text="${yannong.getId()}" th:value="${yannong.getId()}"></td>
+        <td name="yantianid" th:text="${yannong.getId()}" th:value="${yannong.getId()}"></td>
         <td name="yannongname" th:text="${yannong.getName()}" th:value="${yannong.getName()}"></td>
         <td name="yantian" th:text="${yannong.getYantian()}" th:value="${yannong.getYantian()}"></td>
     </tr>
@@ -39,7 +41,6 @@
 </table><!---->
 
 <script type="text/html" id="barDemo">
-
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
 </script>
 
@@ -78,19 +79,43 @@
             }
         });
 
-        table.on('edit(yantian)', function(obj){
+        table.on('edit(tb_yantian)', function(obj){
             var value = obj.value //得到修改后的值
                 ,data = obj.data; //得到所在行所有键值
             console.log(data);
             $.ajax({
-                url:'edityantian',
+                url:'updateyantian',
                 type:'GET',
                 data:{
-                    yannongid:data.yannongid,
+                    yantianid:data.yantianid,
+                    yannongname:data.yannongname,
                     yantian:value
                 },
             })
             layer.msg('烟田名称更改为：'+ value);
+        });
+
+
+        //头工具栏事件
+        table.on('toolbar(tb_yantian)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'addyannong':
+                    var dataBak=[];
+                    var tableBak=table.cache.tb_yantian;
+                    for (var i = 0; i < tableBak.length; i++) {
+                        dataBak.push(tableBak[i]);      //将之前的数组备份
+                    }
+                    dataBak.unshift({
+                        "yantianid":"0",
+                        "yannongname":dataBak[0].yannongname,
+                        "yantian":""
+                    });
+                    table.reload("tb_yantian",{
+                        data:dataBak
+                    });
+                    break;
+            };
         });
 
     });

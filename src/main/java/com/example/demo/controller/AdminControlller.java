@@ -310,14 +310,37 @@ public class AdminControlller {
         model.addAttribute("yannongList",yannongList);
         return  "edityannong";
     }
-    @RequestMapping("/edityantian")
+    @RequestMapping("/updateyannong")
     @ResponseBody
-    public void edityantian(Long yannongid, String yantian){
-        Optional<YanNong> yanNong=yanNongRepository.findById(yannongid);
-        YanNong yanNong1 = yanNong.get();
-        System.out.println(yanNong1.getName()+yanNong1.getYantian());
-        yanNong1.setYantian(yantian);
-        yanNongRepository.save(yanNong1);
+    public void updateyannong(Long yannongid,String yannongname){
+        if (yannongid==0){
+            YanNong yanNong=new YanNong();
+            yanNong.setName(yannongname);
+            yanNongRepository.save(yanNong);
+        }else {
+            Optional<YanNong> yanNong= yanNongRepository.findById(yannongid);
+            YanNong yanNong1 =yanNong.get();
+            yanNong1.setName(yannongname);
+            // System.out.println("yaogengxindeid"+yanNong1.getId());
+            yanNong1.setId(yannongid);
+            yanNongRepository.save(yanNong1);
+        }
+    }
+    @RequestMapping("/updateyantian")
+    @ResponseBody
+    public void updateyantian(Long yantianid,String yannongname, String yantian){
+        System.out.println(yantianid+yannongname+yantian);
+        if (yantianid==0){
+            YanNong yanNong=new YanNong();
+            yanNong.setYantian(yantian);
+            yanNong.setName(yannongname);
+            yanNongRepository.save(yanNong);
+        }else {
+            Optional<YanNong> yanNong=yanNongRepository.findById(yantianid);
+            YanNong yanNong1 = yanNong.get();
+            yanNong1.setYantian(yantian);
+            yanNongRepository.save(yanNong1);
+        }
     }
     @RequestMapping("/deleteyantian")
     @ResponseBody

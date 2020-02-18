@@ -8,25 +8,31 @@
 </head>
 <body>
 
-<table lay-filter="cpbh" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'Table',toolbar:true}" id="tb_yannong">
-    <form class="layui-form layui-form-pane1" th:action="@{/findyannonglike}"  >
-        <div class="layui-form-item" style="padding-left: 10px;padding-top: 10px" >
-            <label class="layui-form-label">搜索烟农</label>
+<script type="text/html" id="toolbarDemo">
+    <form class="layui-form layui-form-pane1"   >
+        <div class="layui-form-item" >
             <div class="layui-input-inline">
-                <input class="layui-input" name="key"  autocomplete="off">
+                <input class="layui-input" name="key" style="height: 30px" autocomplete="off"  placeholder="请输入姓名">
             </div>
-            <button class="layui-btn" type="submit" >搜索</button>
-            <button class="layui-btn" >新增烟农</button>
+            <button class="layui-btn layui-btn-sm" lay-event="searchyannonglike">搜索</button>
+            <button class="layui-btn layui-btn-sm" lay-event="addyannong" >新增烟农</button>
         </div>
+
     </form>
+</script>
+
+<table lay-filter="tb_yannong" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'tb_yannong',toolbar:'#toolbarDemo'}" >
+
     <thead>
     <tr>
-        <th lay-data="{field:'yannongname', minWidth:200,align: 'center'}" >烟农名称</th>
+        <th lay-data="{field:'yannongid', minWidth:200,align: 'center', hide:true}" >烟农ID</th>
+        <th lay-data="{field:'yannongname',edit:'text', minWidth:200,align: 'center'}" >烟农名称(可编辑)</th>
         <th lay-data="{fixed: 'right', width: 200, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="yannong:${yannongList}">
+        <td name="yannongid" th:text="${yannong.getId()}" th:value="${yannong.getId()}"></td>
         <td name="yannongname" th:text="${yannong.getName()}" th:value="${yannong.getName()}"></td>
     </tr>
     </tbody>
@@ -49,16 +55,25 @@
             $ = layui.jquery,
             form = layui.form;
 
-      /*  table.render(
-            {
-                elem:'#tb_yannong',
-                toolbar:true
-            }
-        );*/
-        table.init('cpbh',{});
 
+        table.init('tb_yannong',{});
 
-        table.on('tool(cpbh)', function(obj){
+        table.on('edit(tb_yannong)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data; //得到所在行所有键值
+            console.log(data);
+            $.ajax({
+                url:'updateyannong',
+                type:'GET',
+                data:{
+                    yannongid:data.yannongid,
+                    yannongname:value
+                },
+            })
+            layer.msg('烟农名称更改为：'+ value);
+        });
+
+        table.on('tool(tb_yannong)', function(obj){
             var data = obj.data;
             console.log(obj)
             if(obj.event === 'del'){
@@ -76,6 +91,28 @@
             } else if(obj.event === 'edit'){
                 location.href="/edityannong?yannongname="+data.yannongname;
             }
+        });
+
+        //头工具栏事件
+        table.on('toolbar(tb_yannong)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'addyannong':
+                    var dataBak=[];
+                    var tableBak=table.cache.tb_yannong;
+                    for (var i = 0; i < tableBak.length; i++) {
+                        dataBak.push(tableBak[i]);      //将之前的数组备份
+                    }
+                    dataBak.unshift({
+                        "yannongid":"0",
+                        "yannongname":""
+                    });
+                    table.reload("tb_yannong",{
+                        data:dataBak
+                    });
+                    break;
+
+            };
         });
 
     });
