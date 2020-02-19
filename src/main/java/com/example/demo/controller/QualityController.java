@@ -213,6 +213,7 @@ public class QualityController {
                     qualities.get(i).setState("未填写完");
             }
             model.addAttribute("qualities", qualities);
+
         }
         return "findthreeform";
     }
@@ -232,7 +233,7 @@ public class QualityController {
         WaiGuan waiGuan=waiGuanRepository.findById(quality.getWaiguanid());
         List<HuaXueWeight> huaXueWeights=huaXueWeightRepository.findAll();
         double[] huaXueValue=huaXue.getArray();
-        evaluate=evaluate+"化学状态:\n";
+        evaluate=evaluate+"化学状态:<br/>";
         int count=0;
         for(int i=0;i<9;i++){
             if(huaXueValue[i]>=huaXueWeights.get(i).getLow()&&huaXueValue[i]<=huaXueWeights.get(i).getHigh()){
@@ -243,7 +244,7 @@ public class QualityController {
             }
         }
         if(count!=0)
-            evaluate=evaluate+"含量合格;\n";
+            evaluate=evaluate+"含量合格;<br/>";
         count=0;
         for(int i=0;i<9;i++){
             if(huaXueValue[i]<huaXueWeights.get(i).getLow()||huaXueValue[i]>huaXueWeights.get(i).getHigh()){
@@ -254,24 +255,18 @@ public class QualityController {
             }
         }
         if(count!=0)
-            evaluate=evaluate+"含量不合格;\n";
-        evaluate=evaluate+"评析状态:\n";
+            evaluate=evaluate+"含量不合格;<br/>";
+        evaluate=evaluate+"评析状态:<br/>";
         String[] s1=new String[]{"香气质","香气量","杂气","刺激性","余味","燃烧性","灰度","浓度","劲头","成团性","细腻感","回甜感","干燥感"};
         int[] a1=pingXi.getArray();
-        count=0;
         for(int i=0;i<13;i++){
             evaluate=evaluate+s1[i]+pingXiWeightRepository.findByNameAndDescribe(s1[i],a1[i]).getDescribes();
             if(i<12)
                 evaluate=evaluate+",";
             else
-                evaluate=evaluate+";\n";
-            count++;
-            if(count==5){
-                evaluate=evaluate+"\n";
-                count=0;
-            }
+                evaluate=evaluate+";<br/>";
         }
-        evaluate=evaluate+"外观状态:\n";
+        evaluate=evaluate+"外观状态:<br/>";
         String[] s2=new String[]{"颜色","成熟度","油分","结构","身份","色度"};
         int[] a2=waiGuan.getArray();
         for(int i=0;i<6;i++){
@@ -281,7 +276,6 @@ public class QualityController {
             else
                 evaluate=evaluate+"。";
         }
-        System.out.println(evaluate);
         return evaluate;
     }
 }

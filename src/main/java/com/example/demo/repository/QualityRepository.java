@@ -15,5 +15,6 @@ public interface QualityRepository extends JpaRepository<Quality,Long> {
     List<Quality> findAllByQualitynameLikeAndUserid(String qualityname,long id);
     List<Quality> findAllByQualitynameLike(String qualityname);
     List<Quality> findAllByYannongname(String yannongname);
-    List<Quality> findAllByYannongnameAndYantian(String yannongname,String yantian);
+    List<Quality> findAllByYannongnameAndYantian(String yannong,String yantian);
+    List<Quality> findAllByCaigouriqiBetween(Date date1,Date date2);
 }

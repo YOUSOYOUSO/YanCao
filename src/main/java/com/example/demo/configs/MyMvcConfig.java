@@ -23,6 +23,7 @@ public class MyMvcConfig implements WebMvcConfigurer{
         registry.addViewController("/login").setViewName("/login");
         registry.addViewController("/register").setViewName("/register");
         registry.addViewController("/changepassword").setViewName("/changepassword");
+        registry.addViewController("/table").setViewName("/table");
     }
 
     @Override//通过重写下列方法，可以忽略参数获取中的.
