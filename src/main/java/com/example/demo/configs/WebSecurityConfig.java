@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 //对/和/login路径不进行拦截
-                .antMatchers("/login","/register","/addadmin","/table","/tablesubmit").permitAll()
+                .antMatchers("/login","/register","/addadmin").permitAll()
                 .antMatchers("/editweight/**").hasRole("ADMIN")
                 .antMatchers("/inputqualityinfo").hasRole("USER")
                 .anyRequest().authenticated()
