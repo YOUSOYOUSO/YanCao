@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.management.Query;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,7 +32,6 @@ public class DataAnalysisController {
         String end=date.substring(7,11);
         int a = 0,b=0;
         try {
-
             a = Integer.parseInt(start);
 
         } catch (NumberFormatException e) {
@@ -115,6 +115,7 @@ public class DataAnalysisController {
         String[] s1=new String[]{"香气质","香气量","杂气","刺激性","余味","燃烧性","灰度","浓度","劲头","成团性","细腻感","回甜感","干燥感"};
         int[] a1=pingXi.getArray();//待计算样品的评吸的状态
         for(int i=0;i<13;i++){
+           // System.out.println("查找评吸状态："+s1[i]+a1[i]);
             pingxiscore+=pingXiWeightRepository.findByNameAndDescribe(s1[i],a1[i]).getScore();
         }
         String[] s2=new String[]{"颜色","成熟度","油分","结构","身份","色度"};
@@ -123,6 +124,75 @@ public class DataAnalysisController {
             waiguanscore+=a2[i];
         }
         return waiguanscore+pingxiscore;
+    }
+
+    @RequestMapping("analysisyantian")
+    String yantianfenxi(Model model,String yannongname){
+        yannongname="shit";
+        List<String> yantianList = yanNongRepository.selectDistinctYanTianByYanNongName(yannongname);
+        List<Quality> yearList=qualityRepository.selectDateByYanNongName(yannongname);
+        List<String> distinctyearList=new ArrayList<>();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy");
+        for (Quality year:yearList
+        ) {
+            String y=simpleDateFormat.format(year.getCaigouriqi());
+            boolean flag=true;
+            for (int i=0;i<distinctyearList.size();i++){//去重
+                if (y.equals(distinctyearList.get(i))){
+                    flag=false;
+                    break;
+                }
+            }
+            if (flag){
+                distinctyearList.add(y);
+            }
+        }
+        Collections.sort(distinctyearList);
+        Collections.sort(yantianList);
+        System.out.println(yantianList);
+        System.out.println(distinctyearList);
+
+        List<List<Double>> scoress=new ArrayList<>();
+        for (int i=0;i<yantianList.size();i++){
+            List<Double> scores =new ArrayList<>();
+            String yantian =yantianList.get(i);
+            System.out.println("烟田："+yantian);
+            for (int j=0;j<distinctyearList.size();j++){
+                String year =distinctyearList.get(j);
+                System.out.println("年份："+year);
+                //查找该烟田该年份的所有分数求平均
+                double score=0;
+                int count=0;
+                for (int k=0;k<yearList.size();k++){
+                    Quality ayearyantian =yearList.get(k);
+                    if (ayearyantian.getYantian().equals(yantian)&&
+                            simpleDateFormat.format(ayearyantian.getCaigouriqi()).equals(year)){
+                        score+=CountScore(ayearyantian.getQuality_id());
+                        count++;
+                    }
+                    if(count!=0){
+                        score=score/count;
+                    }
+                    else {
+                        score=0;
+                    }
+                }
+                scores.add(score);
+            }
+            scoress.add(scores);
+        }
+        System.out.println(scoress);
+
+        List<String> yantianList1=new ArrayList<>();
+        for (String yantian:yantianList
+             ) {
+            yantianList1.add('"'+yantian+'"');
+        }
+        System.out.println(yantianList1);
+        model.addAttribute("scoress",scoress);
+        model.addAttribute("yantianList",yantianList1);
+        model.addAttribute("distinctyearList",distinctyearList);
+        return  "analysisyantian";
     }
 }
 
