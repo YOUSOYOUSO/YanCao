@@ -33,8 +33,10 @@ public class AdminControlller {
     YanCaoUserRepository yanCaoUserRepository;
     @Autowired
     YanNongRepository yanNongRepository;
+
     @Autowired
     QualityRepository qualityRepository;
+
     @RequestMapping("")
     public String init(Principal principal, Model model) {
 
