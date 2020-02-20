@@ -39,7 +39,7 @@ public class UserController {
     public @ResponseBody  boolean addadmin(
             @RequestParam("username") String username,
             @RequestParam("password") String password){
-        System.out.println("ROLE中数据数："+yanCaoRoleRepository.count());
+
         if(yanCaoRoleRepository.count()==0){
             yanCaoRoleRepository.save(new YanCaoRole("ROLE_ADMIN"));
             yanCaoRoleRepository.save(new YanCaoRole("ROLE_USER"));

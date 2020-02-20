@@ -16,7 +16,6 @@ public class YanCaoUserService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("用户名不存在");
         }
-        System.out.println("用户："+user);
         return user;
     }
 }
