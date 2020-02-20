@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.management.Query;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -26,6 +28,8 @@ public class DataAnalysisController {
     HuaXueRepository huaXueRepository;
     @Autowired
     PingXiWeightRepository pingXiWeightRepository;
+    @Autowired
+    HuaXueWeightRepository huaXueWeightRepository;
     @RequestMapping("/tablesubmit")
     public String table(@RequestParam("date")String date, Model model){
         String start=date.substring(0,4);
@@ -193,6 +197,82 @@ public class DataAnalysisController {
         model.addAttribute("yantianList",yantianList1);
         model.addAttribute("distinctyearList",distinctyearList);
         return  "analysisyantian";
+    }
+    @RequestMapping("/passrate")
+    public String passrate(Model model) {
+        List<YanNong> yanNongList = yanNongRepository.selectDistinctYanNongName();
+        YanNong yanNong=new YanNong();
+        if(yanNongList.get(0)!=null){
+            yanNong=yanNongList.get(0);
+            yanNong.setName("全部");
+        yanNongList.add(yanNong);}
+        model.addAttribute("yanNongList", yanNongList);
+        return "passrate";
+    }
+    @RequestMapping("/getpassrate")
+    public String getpassrate(@RequestParam("date")String date,@RequestParam("yannongname")String yannongname,Model model){
+        int a = 0;
+        try {
+            a = Integer.parseInt(date);
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+            String start=Integer.toString(a-1);
+            String end=Integer.toString(a+1);
+            start=start+"-12-31";
+            end=end+"-01-01";
+            Date date1 = null;
+            Date date2 = null;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD");
+            try {
+                date1 = simpleDateFormat.parse(start);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                date2 = simpleDateFormat.parse(end);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            List<Quality> qualities=new ArrayList<>();
+            if(yannongname.equals("全部"))
+                qualities=qualityRepository.findAllByCaigouriqiBetween(date1,date2);
+            else
+                qualities=qualityRepository.findAllByYannongnameAndCaigouriqiBetween(yannongname,date1,date2);
+            int count1=0;
+            int count2=0;
+            for(Quality quality:qualities){
+                if(isPass(quality)){
+                    count1=count1+1;
+                }
+                else{
+                    count2=count2+1;
+                }
+            }
+            List<YanNong> yanNongList = yanNongRepository.selectDistinctYanNongName();
+            YanNong yanNong=new YanNong();
+            if(yanNongList.get(0)!=null){
+                yanNong.setName("全部");
+                yanNongList.add(yanNong);
+            }
+        model.addAttribute("yanNongList", yanNongList);
+            model.addAttribute("pass",count1);
+            model.addAttribute("dispass",count2);
+            model.addAttribute("title","\""+yannongname+date+"年合格率\"");
+        return "passrate";
+    }
+    public boolean isPass(Quality quality){
+        HuaXue huaXue=huaXueRepository.findById(quality.getHuaxueid());
+        List<HuaXueWeight> huaXueWeights=huaXueWeightRepository.findAll();
+        double[] huaXueValue=huaXue.getArray();
+        for(int i=0;i<9;i++){
+            if(huaXueValue[i]<huaXueWeights.get(i).getLow()||huaXueValue[i]>huaXueWeights.get(i).getHigh()){
+                return false;
+            }
+        }
+        return true;
     }
 }
 
