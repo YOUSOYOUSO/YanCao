@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<script type="text/html" id="toolbarDemo">
+
+    <div class="layui-input-inline">
+        <input class="layui-input" name="key" style="height: 30px" autocomplete="off"  placeholder="请输入烟农名">
+    </div>
+    <button class="layui-btn layui-btn-sm" lay-event="searchyannonglike">搜索</button>
+
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">对比选中烟农</button>
+
+</script>
+
+<table lay-filter="tb_yantian" class="layui-table" lay-data="{cellMinWidth: 80, page: true,id: 'tb_yantian',toolbar:'#toolbarDemo'}" id="tb_yantian">
+
+    <thead>
+    <tr>
+        <th lay-data="{minWidth:200,align:'left',type:'checkbox'}"></th>
+        <th lay-data="{field:'yantianid', minWidth:200,align: 'center', hide:true}" id="yantianid"  >烟田ID</th>
+        <th lay-data="{field:'yannongname', minWidth:200,align: 'center'}" id="yannongname"  >烟农名称</th>
+        <th lay-data="{fixed: 'right', width: 200, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="yannong:${yannongList}">
+        <td ></td>
+        <td name="yantianid" th:text="${yannong.getId()}" th:value="${yannong.getId()}"></td>
+        <td name="yannongname" th:text="${yannong.getName()}" th:value="${yannong.getName()}"></td>
+    </tr>
+    </tbody>
+
+</table><!---->
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >分析所属烟田</a>
+</script>
+
+<script src="layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+
+    layui.use(['table', 'form', 'layer','upload'], function () {
+        var table = layui.table,
+            layer = layui.layer,
+            upload = layui.upload,
+            $ = layui.jquery,
+            form = layui.form;
+        var table = layui.table;
+
+        $("[data-field='yannongid']").css('dispaly','none');
+
+        table.init('yantian',{
+
+        });
+
+        table.on('tool(tb_yantian)', function(obj){
+            var data = obj.data;
+            console.log(obj)
+            if(obj.event === 'edit'){
+                location.href="/analysisyantian?yannongname="+data.yannongname;
+            }
+        });
+
+
+        //头工具栏事件
+        table.on('toolbar(tb_yantian)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'addyannong':
+                    var dataBak=[];
+                    var tableBak=table.cache.tb_yantian;
+                    for (var i = 0; i < tableBak.length; i++) {
+                        dataBak.push(tableBak[i]);      //将之前的数组备份
+                    }
+                    dataBak.unshift({
+                        "yantianid":"0",
+                        "yannongname":dataBak[0].yannongname,
+                        "yantian":""
+                    });
+                    table.reload("tb_yantian",{
+                        data:dataBak
+                    });
+                    break;
+            };
+        });
+
+        //头工具栏事件
+        table.on('toolbar(tb_yantian)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    //layer.alert(JSON.stringify(data));
+                    var yannongnamelist=[];
+                    for (i=0;i<data.length;i++){
+                        yannongnamelist.push(data[i].yannongname);
+                    }
+
+                    var form1 = $("<form method='get'></form>");
+
+                    form1.attr("action", "/analysisyantians");
+
+                    var data = yannongnamelist;
+
+                    if (data === undefined || data === null || data.length === 0) {
+                        console.log("无请求参数");
+                    } else {
+                        console.log("------------------")
+                        console.log("请求参数为："+yannongnamelist);
+                        var input = $("<input type='hidden'>");
+                        input.attr({ "name": 'yannongnamelist[]' });
+                        input.val(yannongnamelist);
+                        form1.append(input);
+
+                    }
+
+                    $(document.body).append(form1);
+
+                    form1.submit();
+
+                    form1.remove();
+
+         /*console.log("请求参数为："+yannongnamelist);
+                   $.ajax({
+                        url:'analysisyantians',
+                        type:"GET",
+                        data:{
+                            yannongnamelist:yannongnamelist
+                        },
+                        success:function (msg) {
+                            if (msg) {//根据返回值进行跳转
+                                console.log(msg);
+                                window.location.href = 'analysisyantians';
+                            }
+                        }
+
+                    });*/
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            };
+        });
+    });
+</script>
+
+</body>
+</html>
