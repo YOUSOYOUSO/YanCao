@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <link rel="stylesheet" href="../static/css/layui.css" th:href="@{css/layui.css}">
+   </head>
+   <body style="height: 100%; margin: 0">
+   <form class="layui-form layui-form-pane1"  lay-filter="first" th:action="@{/getpassrate}" >
+       <div class="layui-inline">
+           <label class="layui-form-label">查看合格率</label>
+           <div class="layui-input-inline">
+               <input type="text" name="date" class="layui-input" id="date" placeholder="yyyy">
+           </div>
+       </div>
+       <div class="layui-input-inline">
+
+           <select id="yannong" name="yannongname" lay-filter="yannong" required lay-verify="required">
+               <option>请选择烟农</option>
+               <option th:each="yannong:${yanNongList}" th:value="${yannong.getName()}" th:text="${yannong.getName()}"></option>
+           </select>
+
+       </div>
+       <button class="layui-btn" lay-submit lay-filter="test" type="submit">立即提交</button>
+   </form>
+   <input type="hidden" id="pass" th:value="${pass}"/>
+   <input type="hidden" id="dispass" th:value="${dispass}"/>
+   <input type="hidden" id="title" th:value="${title}"/>
+   </div>
+       <div id="container" style="height: 80%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+   <script type="text/javascript" src="../static/jquery-1.2.6.min.js"th:src="@{jquery-1.2.6.min.js}"></script>
+   <script type="text/javascript">
+       function pass() {
+           var data = $("#pass").val();
+           console.log(data);
+           var pass = eval("("+data+")");
+           console.log(pass);
+           return pass;
+       }
+       function dispass() {
+           var data = $("#dispass").val();
+           var dispass = eval("("+data+")");
+           return dispass;
+       }
+       function title() {
+           var data = $("#title").val();
+           var title = eval("("+data+")");
+           return title;
+       }
+   </script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: title(),
+        left: 'center'
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+
+    series: [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '40%'],
+            data: [
+                {value: pass(), name: '合格'},
+                {value: dispass(), name: '不合格'},
+            ],
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   <script type="text/javascript" th:src="@{layui.js}" src="../static/layui.js"></script>
+   <script type="text/javascript">
+       layui.use(['form','laydate'], function(){
+           var laydate = layui.laydate
+               ,form=layui.form;
+           laydate.render({
+               elem: '#date'
+               ,type: 'year'
+           });
+       })
+   </script>
+   </body>
+</html>

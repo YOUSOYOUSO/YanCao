@@ -52,20 +52,20 @@ public class QualityController {
     @RequestMapping("/getyantian")
     @ResponseBody
     public List<YanNong> getYanTian(String yannong_name) {
-        System.out.println(yannong_name);
+
         List<YanNong> yanTianList = yanNongRepository.selectByYanNongName(yannong_name);
 
         for (YanNong yt : yanTianList
         ) {
-            System.out.println(yt.getYantian());
+
         }
         return yanTianList;
     }
 
     @RequestMapping("/addquality")
-    public String addQuality(Principal principal, Model model, String name, String date, String yannongname, String yantian) {
+    public String addQuality(Principal principal, Model model,@RequestParam("name") String name, @RequestParam("date")String date, @RequestParam("yannongname")String yannongname, @RequestParam("yantian")String yantian) {
 //name要对上
-        System.out.println("用户名：" + principal.getName() + date + yannongname + yantian);
+
 
         Date date1 = null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD");
@@ -95,7 +95,6 @@ public class QualityController {
 
         this.quality = qualityRepository.findByQualitynameAndCaigouriqiAndYannongnameAndYantianAndUserid(name,date1,yannongname,yantian, yanCaoUserRepository.findByUsername(principal.getName()).getId());
 
-        System.out.println("huaxue:" + quality.getHuaxueid() + "waiguan" + quality.getWaiguanid() + "pingxi" + quality.getPingxiid());
         HuaXue huaXue = huaXueRepository.findById(quality.getHuaxueid());
         WaiGuan waiGuan = waiGuanRepository.findById(quality.getWaiguanid());
         PingXi pingXi = pingXiRepository.findById(quality.getPingxiid());
@@ -110,7 +109,6 @@ public class QualityController {
     public String UpdateQuality(
             HuaXue huaXue, PingXi pingXi, WaiGuan waiGuan
     ) {
-        System.out.println("bianjidehuaxueid" + huaXue.getId());
         if (huaXue.getId() == 0) {
             huaXue.setId(huaXueRepository.findById(quality.getHuaxueid()).getId());
             waiGuan.setId(waiGuanRepository.findById(quality.getWaiguanid()).getId());
@@ -144,7 +142,7 @@ public class QualityController {
         WaiGuan waiGuan = waiGuanRepository.findById(quality.getWaiguanid());
         HuaXue huaXue = huaXueRepository.findById(quality.getHuaxueid());
         PingXi pingXi = pingXiRepository.findById(quality.getPingxiid());
-        System.out.println("huaxue waiguan pingxi id"+" "+huaXue.getId()+" "+waiGuan.getId()+" "+pingXi.getId());
+
         model.addAttribute("huaxue", huaXue);
         model.addAttribute("pingxi", pingXi);
         model.addAttribute("waiguan", waiGuan);
@@ -277,4 +275,5 @@ public class QualityController {
         }
         return evaluate;
     }
+
 }

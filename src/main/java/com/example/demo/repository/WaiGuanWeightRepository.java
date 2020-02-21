@@ -8,4 +8,5 @@ import java.util.List;
 public interface WaiGuanWeightRepository extends JpaRepository<WaiGuanWeight,Long> {
     WaiGuanWeight findByNameAndDescribesAndValues(String name,String describes,String values);
     List<WaiGuanWeight> findByNameAndDescribe(String name,int describe);
+    WaiGuanWeight findByNameAndDescribeAndValue(String name,int describe,int value);
 }

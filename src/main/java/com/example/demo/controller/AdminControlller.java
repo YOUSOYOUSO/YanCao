@@ -271,7 +271,6 @@ public class AdminControlller {
                                                @RequestParam("low") double low
                                                ){
         HuaXueWeight huaXueWeight=huaXueWeightRepository.findByName(name);
-        System.out.println("这里:"+name);
         huaXueWeight.setHigh(high);
         huaXueWeight.setLow(low);
         huaXueWeightRepository.save(huaXueWeight);
@@ -306,7 +305,6 @@ public class AdminControlller {
     @Transactional
     @ResponseBody
     public void deleteyannong(String yannongname){
-        System.out.println(yannongname);
         yanNongRepository.deleteByName(yannongname);
     }
     @RequestMapping("/edityannong")
@@ -328,7 +326,6 @@ public class AdminControlller {
             String oldname=yanNong1.getName();
 
             List<YanNong> yanNongList=yanNongRepository.findAllByName(oldname);
-            System.out.println(yanNongList.size());
             for (YanNong yanNonga: yanNongList
                  ) {
                 yanNonga.setName(yannongname);
@@ -349,7 +346,7 @@ public class AdminControlller {
     @RequestMapping("/updateyantian")
     @ResponseBody
     public void updateyantian(Long yantianid,String yannongname, String yantian){
-        System.out.println(yantianid+yannongname+yantian);
+
         if (yantianid==0){
             YanNong yanNong=new YanNong();
             yanNong.setYantian(yantian);
@@ -364,7 +361,6 @@ public class AdminControlller {
             List<Quality> qualityList= qualityRepository.findAllByYannongnameAndYantian(yannongname,oldname);
             for (Quality quality:qualityList
             ) {
-                System.out.println("正在更改这个quality的烟田："+quality.getQualityname());
                 quality.setYantian(yantian);
                 qualityRepository.save(quality);
             }

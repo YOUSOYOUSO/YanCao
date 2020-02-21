@@ -23,19 +23,23 @@
     </form>
     <thead>
     <tr>
-        <th lay-data="{field:'quality_id', minWidth:200,align: 'center'}" >产品id</th>
-        <th lay-data="{field:'qualityname', minWidth:200,align: 'center'}" >产品名称</th>
-        <th lay-data="{field:'caigouriqi', minWidth:200,align: 'center'}" >采购日期</th>
-        <th lay-data="{field:'state', minWidth:200,align: 'center' ,templet:'#statecolor',sort: true}"  >编辑状态</th>
-        <th lay-data="{fixed: 'right', width: 200, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
+        <th lay-data="{field:'quality_id', minWidth:150,align: 'center'}" >产品id</th>
+        <th lay-data="{field:'state', minWidth:150,align: 'center' ,templet:'#statecolor',sort: true}"  >编辑状态</th>
+        <th lay-data="{field:'qualityname', minWidth:150,align: 'center'}" >产品名称</th>
+        <th lay-data="{field:'caigouriqi', minWidth:150,align: 'center'}" >采购日期</th>
+        <th lay-data="{field:'yannong', minWidth:150,align: 'center'}" >烟农</th>
+        <th lay-data="{field:'yantian', minWidth:150,align: 'center'}" >烟田</th>
+        <th lay-data="{fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}" rowspan="2">操作</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="quality:${qualities}">
         <td name="quality_id" th:text="${quality.getQuality_id()}" th:value="${quality.getQuality_id()}" ></td>
+        <td th:text="${quality.getState()}" ></td>
         <td name="qualityname" th:text="${quality.getQualityname()}" th:value="${quality.getQualityname()}"></td>
         <td name="caigouriqi" th:text="${quality.getCaigouriqi()}" th:value="${quality.getCaigouriqi()}"></td>
-        <td th:text="${quality.getState()}" ></td>
+        <td name="caigouriqi" th:text="${quality.getYannongname()}" th:value="${quality.getYannongname()}"></td>
+        <td name="caigouriqi" th:text="${quality.getYantian()}" th:value="${quality.getYantian()}"></td>
     </tr>
     </tbody>
 
